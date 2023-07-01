@@ -1,26 +1,16 @@
+/* eslint-disable no-unused-vars */
 // import  { useState } from 'react';
 import {Routes , Route} from 'react-router-dom';
 import RegestrationPage from "./layouts/RegestrationPage";
 import SignInPage from "./layouts/SignInPage";
 import Test from "./layouts/Test";
 import MainPage from "./layouts/MainPage";
+import React from 'react';
 
 const App = () => {
 
 
-  // const handleLogout = () => {
 
-  //   fetch('/api/logout', {
-  //     method: 'GET',
-  //   })
-  //     .then(response => response.json())
-  //     .then(data => {
-  //       console.log(data);
-  //     })
-  //     .catch(error => {
-  //       console.error(error);
-  //     });
-  // };
 
   return (
     <>

@@ -16,13 +16,16 @@ module.exports = {
         );
 
         res
-          .cookie("usertoken", userToken, {
-            httpOnly: true,
+          .cookie("token", userToken, {
+            httpOnly: true, 
+            secure: true,
+            sameSite: 'None', 
           })
-          .json({ msg: "success!", user: user });
+          .json({ msg: "success!", user: user , token: userToken });
       })
       .catch((err) => res.json(err));
   },
+  
   getAll: async (req, res) => {
     try {
       const users = await User.find();
@@ -56,15 +59,17 @@ module.exports = {
       process.env.SECRET_KEY
     ); 
 
-    res
-      .cookie("usertoken", userToken, {
-        httpOnly: true,
-      })
-      .json({ msg: "success!" });
+    res.cookie('token', userToken, {
+      httpOnly: true, 
+      secure: true,
+      sameSite: 'None', 
+    });
+    return res.status(200).json({ message: "Login successful" , token: userToken});
   },
 
   logout: (req, res) => {
     res.clearCookie("usertoken");
-    res.sendStatus(200);
+    res.json({ message: "Logout successful" });
   },
+  
 };

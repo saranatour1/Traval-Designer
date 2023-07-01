@@ -5,6 +5,8 @@ import Card from "../components/Form Components/Card";
 import TopHeading from "../components/Form Components/TopHeading";
 import InputItem from "../components/Form Components/InputItem";
 import FormButton from '../components/Form Components/FormButton.jsx'
+// eslint-disable-next-line no-unused-vars
+import React from 'react';
 
 
 function RegestrationPage() {
@@ -29,7 +31,13 @@ function RegestrationPage() {
     .then(response => response.json())
     .then(data => {
       // If successfull Go to the main page
-      navigate('/main')
+
+      if(data.errors){
+        console.log(data.errors);
+      }else{
+        navigate('/main');
+      }
+
       console.log(data); 
     })
     .catch(error => {
