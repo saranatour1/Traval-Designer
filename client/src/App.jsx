@@ -1,16 +1,39 @@
-import { useState } from 'react'
-import './App.css'
+// import  { useState } from 'react';
+import {Routes , Route} from 'react-router-dom';
+import RegestrationPage from "./layouts/RegestrationPage";
+import SignInPage from "./layouts/SignInPage";
+import Test from "./layouts/Test";
+import MainPage from "./layouts/MainPage";
 
-function App() {
-  // eslint-disable-next-line no-unused-vars
-  const [count, setCount] = useState(0)
+const App = () => {
+
+
+  // const handleLogout = () => {
+
+  //   fetch('/api/logout', {
+  //     method: 'GET',
+  //   })
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       console.log(data);
+  //     })
+  //     .catch(error => {
+  //       console.error(error);
+  //     });
+  // };
 
   return (
     <>
-    <h1 className=' text-justify'>Helloooo</h1>
-        
-        </>
-  )
-}
+    <Routes>
+      <Route path='/' element={<RegestrationPage />}/>
+      <Route path='/signin' element={<SignInPage />}/>
+      <Route path ='/test' element={<Test />} />
+      <Route path ='/main' element={<MainPage />} />
+    </Routes>
 
-export default App
+
+    </>
+  );
+};
+
+export default App;
