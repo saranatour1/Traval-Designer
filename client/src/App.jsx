@@ -6,10 +6,15 @@ import SignInPage from "./layouts/SignInPage";
 import Test from "./layouts/Test";
 import MainPage from "./layouts/MainPage";
 import React from 'react';
+import { useEffect } from 'react';
 
 const App = () => {
+  
+      useEffect(() => {
+        
 
 
+      }, []);
 
 
   return (

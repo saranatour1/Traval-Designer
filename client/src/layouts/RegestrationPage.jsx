@@ -35,6 +35,10 @@ function RegestrationPage() {
       if(data.errors){
         console.log(data.errors);
       }else{
+        const token = data.token;
+        if (token) {
+          localStorage.setItem('token', token);
+        }
         navigate('/main');
       }
 

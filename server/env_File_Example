@@ -1,0 +1,4 @@
+DB_URL='your mongo db URL connection here'
+SECRET_KEY='your jwt client key here'
+TRIP_ADVISOR_API_KEY='Your trip advisor api key here '
+*Additional*

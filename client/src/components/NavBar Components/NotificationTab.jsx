@@ -10,6 +10,7 @@ function NotificationTab() {
     })
       .then(response => {
         console.log(response); 
+        localStorage.removeItem('token');
         return response.json();
       })
       .then(data => {
