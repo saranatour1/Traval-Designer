@@ -41,7 +41,10 @@ UserSchema.pre('validate', function(next) {
   next();
 });
 
+// @ts-ignore
 UserSchema.pre('save', function(next) {
+
+  // @ts-ignore
   bcrypt.hash(this.password, 10)
     .then(hash => {
       this.password = hash;

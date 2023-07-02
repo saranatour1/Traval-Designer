@@ -22,12 +22,11 @@ function MainPage() {
     }
   }, [])
   
-
+  
   return (
     <div >
       <Nav/>
       <SearchBar />
-
     </div>
   )
 }
