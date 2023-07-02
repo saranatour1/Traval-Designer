@@ -57,14 +57,19 @@ module.exports = {
         id: user._id,
       },
       process.env.SECRET_KEY
-    ); 
+    );
+    
+    // const decoded = jwt.verify(userToken, process.env.SECRET_KEY);  
+    // var userId = decoded.id;  
+    // console.log(userId)
+    // console.log('649f3bbd934bfcf0c5f6db4f' ===userId);  
 
     res.cookie('token', userToken, {
       httpOnly: true, 
       secure: true,
       sameSite: 'None', 
     });
-    return res.status(200).json({ message: "Login successful" , token: userToken});
+    return res.status(200).json({ message: "Login successful" , token: userToken });
   },
 
   logout: (req, res) => {
@@ -73,3 +78,5 @@ module.exports = {
   },
   
 };
+// const val= new Date;
+// console.log(val.toLocaleString())
