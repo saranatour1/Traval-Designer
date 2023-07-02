@@ -54,7 +54,6 @@ const TripSchema = new Schema(
           type: Boolean,
           default: false,
         },
-        collab: [{ type: Schema.Types.ObjectId, ref: "User" }],
         dateTime: {
           type: Date,
         },
