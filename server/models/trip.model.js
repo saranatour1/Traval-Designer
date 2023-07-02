@@ -16,9 +16,9 @@ const TripSchema = new Schema(
     },
     likes: {
       type: Number,
-      likedBy: [{ type: Schema.Types.ObjectId, ref: "User" }],
       default: 0,
     },
+    likedBy: [{ type: Schema.Types.ObjectId, ref: "User" }],
     comments: [
       {
         content: {

@@ -10,6 +10,8 @@ const allUsersRoutes = require("./routes/users.routes");
 const allTripRoutes = require('./routes/trip.routes');
 const allToDoListRoutes = require('./routes/todo.routes');
 // Change the app.use(cors()) to the one below
+// please add any additional routes below this line
+const likesRoutes = require('./routes/likes.routes');
 
 
 require("./config/mongoose.config");
@@ -24,6 +26,9 @@ app.use(express.json(), express.urlencoded({ extended: true }));
 allUsersRoutes(app);
 allTripRoutes(app); 
 allToDoListRoutes(app);
+// add any aditional routes below this line 
+likesRoutes(app);
+
 
 app.listen(8000, () => console.log("The server is all fired up on port 8000"));
 
