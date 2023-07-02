@@ -12,6 +12,7 @@ module.exports = {
           {
             id: user._id,
           },
+          // @ts-ignore
           process.env.SECRET_KEY
         );
 
@@ -56,6 +57,7 @@ module.exports = {
       {
         id: user._id,
       },
+      // @ts-ignore
       process.env.SECRET_KEY
     );
     
