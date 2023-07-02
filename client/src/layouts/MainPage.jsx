@@ -10,6 +10,8 @@ import SearchBar from "../components/SearchBar";
 
 
 
+
+
 function MainPage() {
   const navigate =  useNavigate();
   const userToken =localStorage.getItem('token');
@@ -22,10 +24,10 @@ function MainPage() {
   
 
   return (
-    <div>
+    <div >
       <Nav/>
       <SearchBar />
-      
+
     </div>
   )
 }
