@@ -12,6 +12,7 @@ module.exports = {
           {
             id: user._id,
           },
+          // @ts-ignore
           process.env.SECRET_KEY
         );
 
@@ -43,7 +44,7 @@ module.exports = {
       return res.sendStatus(400);
     } 
 
-    const correctPassword = await bcrypt.compare(
+    const correctPassword = bcrypt.compare(
       req.body.password,
       user.password
     );

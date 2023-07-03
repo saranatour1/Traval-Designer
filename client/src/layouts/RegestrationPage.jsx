@@ -39,7 +39,7 @@ function RegestrationPage() {
         if (token) {
           localStorage.setItem('token', token);
         }
-        navigate('/main');
+        navigate('/dashboard');
       }
 
       console.log(data); 
