@@ -30,6 +30,7 @@ function SignInPage() {
         const token = data.token;
         if (token) {
           localStorage.setItem('token', token);
+          localStorage.setItem('userId', data.id);
           navigate('/dashboard');
         } else {
           throw new Error('Login failed');

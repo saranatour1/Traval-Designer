@@ -9,5 +9,6 @@ module.exports = app => {
   app.post("/api/login", Users.login);
   app.get("/api/users", authenticate, Users.getAll);
   app.get('/api/logout' , Users.logout);
+  app.get('/api/user/:userId' ,Users.findUser);
 }
 

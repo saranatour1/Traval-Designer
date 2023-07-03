@@ -29,7 +29,7 @@ module.exports = {
 
   searchByString: (req, res) => {
     const searchTxt = req.params.searchParam;
-    const url = `https://api.content.tripadvisor.com/api/v1/location/search?searchQuery=${searchTxt}&key=${API_Key}`;
+    const url = `https://api.content.tripadvisor.com/api/v1/location/search?searchQuery=${searchTxt}&radius=60&radiusUnit=km&key=${API_Key}`;
     const options = { method: "GET", headers: { accept: "application/json" } };
 
     fetch(url, options)
