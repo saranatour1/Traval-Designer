@@ -12,7 +12,8 @@ import Display from "../components/Display";
 
 function MainPage() {
   const [coordinates, setCoordinates] = useState({});
-  const [nearby, setNearby] = useState({})
+  const [nearby, setNearby] = useState({}); 
+  const [results , setResults] =useState({});
   
 
   useEffect(() => {
@@ -110,16 +111,17 @@ function MainPage() {
   }
   
 
-  
 
-  
+
+  console.log(results)
   return (
     <div >
       <SignedOutNav />
-      <SearchBar />
+      <SearchBar onSubmitResult={(data)=>setResults(data)}/>
+      {results && <Display places={results.data} />}
+      {nearby && <Display places={nearby.data} />}
 
-      {nearby && <Display places={nearby.data}  />}
-
+      
 
     </div>
   )
