@@ -5,9 +5,12 @@ import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react';
 import DisplayPosts from '../components/DisplayPosts';
+import FakeComponent from '../components/FakeComponent';
+import PostForm from '../components/Post Components/PostForm';
 
 function DashBoard() {
-  const [posts, setPosts] = useState({})  
+  const [posts, setPosts] = useState({}) 
+  const [showPopUp , setShowPopUp]= useState(false); 
 
   useEffect(() => {
         getPosts();
@@ -38,7 +41,10 @@ function DashBoard() {
     <>
       <Nav />
       
+
+      <FakeComponent onClickProp ={() => setShowPopUp(!showPopUp)} />
       {posts && <DisplayPosts items={posts}/>}
+      {showPopUp && <PostForm onClickProp ={() => setShowPopUp(!showPopUp)}  />}
 
     </>
   )
