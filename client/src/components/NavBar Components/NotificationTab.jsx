@@ -11,6 +11,7 @@ function NotificationTab() {
       .then(response => {
         console.log(response); 
         localStorage.removeItem('token');
+        localStorage.removeItem('userId');
         return response.json();
       })
       .then(data => {
