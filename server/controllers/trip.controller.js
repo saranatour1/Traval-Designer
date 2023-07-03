@@ -67,7 +67,6 @@ const getTripById = async (req, res) => {
     if (!trip) {
       return res.status(404).json({ error: 'Trip not found' });
     }
-
     res.json(trip);
   } catch (error) {
     res.status(500).json({ error: 'Server error' });
