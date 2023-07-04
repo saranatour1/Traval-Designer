@@ -35,6 +35,7 @@ UserSchema.virtual('confirmPassword')
 
 
 UserSchema.pre('validate', function(next) {
+  // @ts-ignore
   if (this.password !== this.confirmPassword) {
     this.invalidate('confirmPassword', 'Password must match confirm password');
   }

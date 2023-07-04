@@ -46,6 +46,7 @@ module.exports = {
 
     const correctPassword = await bcrypt.compare(
       req.body.password,
+      // @ts-ignore
       user.password
     );
 

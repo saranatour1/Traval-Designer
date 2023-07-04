@@ -164,6 +164,33 @@ const deleteLabelFromTrip = async (req, res) => {
         res.status(500).json({ error: 'Server error' });
     }
 };
+const addLikeToTrip = async (req, res) => {
+    try {
+      const trip = await Trip.findById(req.params.id);
+  
+      if (!trip) {
+        return res.status(404).json({ error: 'Trip not found' });
+      }
+  
+      // Check if the user has already liked the trip
+      const userId = req.params.userId; // Assuming you pass the user ID in the request parameters
+      // @ts-ignore
+      if (trip.likes.likedBy.includes(userId)) {
+        return res.status(400).json({ error: 'Trip already liked by the user' });
+      }
+  
+      // @ts-ignore
+      trip.likes.likedBy.push(userId);
+      trip.likes = trip.likes + 1;
+  
+      const updatedTrip = await trip.save();
+      res.json(updatedTrip);
+    } catch (error) {
+      res.status(500).json({ error: 'Server error' });
+    }
+  };
+
+
 
 
 module.exports = {
@@ -175,4 +202,5 @@ module.exports = {
     addLabelToTrip,
     deleteLabelFromTrip,
     editLabelInTrip,
+    addLikeToTrip,
 };
