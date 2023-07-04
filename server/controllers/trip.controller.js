@@ -182,6 +182,9 @@ const deleteLabelFromTrip = async (req, res) => {
   }
 };
 
+
+
+
 module.exports = {
   createTrip,
   updateTrip,

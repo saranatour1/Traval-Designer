@@ -14,6 +14,7 @@ const allToDoListRoutes = require('./routes/todo.routes');
 const likesRoutes = require('./routes/likes.routes');
 const collabRoutes = require('./routes/collabs.routes');
 const placesRoutes= require('./routes/places.routes');
+const comments= require('./routes/comment.routes');
 
 
 require("./config/mongoose.config");
@@ -32,7 +33,7 @@ allToDoListRoutes(app);
 likesRoutes(app);
 collabRoutes(app);
 placesRoutes(app);
-
+comments(app);
 app.listen(8000, () => console.log("The server is all fired up on port 8000"));
 
 
