@@ -12,7 +12,7 @@ const location =useLocation();
       NavLink
         // @ts-ignore
         exact
-        to="/main"
+        to="/dashboard"
         className={({ isActive, isPending }) =>
         isPending ? "pending" : isActive ? activeStyle : inActiveStyle
       }

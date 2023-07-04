@@ -53,31 +53,45 @@ const updateTrip = async (req, res) => {
 // @desc    Get a single trip by ID
 // @route   GET /trips/:id
 // @access  Public
+// sara has changed this to bring the author object into the output
+// Source https://mongoosejs.com/docs/populate.html#populating-multiple-paths
 const getTripById = async (req, res) => {
-    try {
-        const trip = await Trip.findById(req.params.id);
+  try {
+    const trip = await Trip.findById(req.params.id)
+      .populate("author")
+      .populate("likedBy")
+      .populate("comments.commentBy")
+      .populate("collab")
+      .exec();
 
-        if (!trip) {
-            return res.status(404).json({ error: 'Trip not found' });
-        }
-
-        res.json(trip);
-    } catch (error) {
-        res.status(500).json({ error: 'Server error' });
+    if (!trip) {
+      return res.status(404).json({ error: 'Trip not found' });
     }
+    res.json(trip);
+  } catch (error) {
+    res.status(500).json({ error: 'Server error' });
+  }
 };
+
 
 // @desc    Get all trips
 // @route   GET /trips
 // @access  Public
 const getAllTrips = async (req, res) => {
-    try {
-        const trips = await Trip.find();
-        res.json(trips);
-    } catch (error) {
-        res.status(500).json({ error: 'Server error' });
-    }
+  try {
+    const trips = await Trip.find()
+      .populate("author")
+      .populate("likedBy")
+      .populate("comments.commentBy")
+      .populate("collab")
+      .exec();
+
+    res.json(trips);
+  } catch (error) {
+    res.status(500).json({ error: 'Server error' });
+  }
 };
+
 
 // @desc    Delete a trip
 // @route   DELETE /trips/:id

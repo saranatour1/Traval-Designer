@@ -35,6 +35,20 @@ module.exports = {
       res.status(500).json({ error: "Failed to retrieve users" });
     }
   },
+  findUser: (req, res) => {
+  const userId = req.params.userId;
+  User.findOne({_id: userId}, (err, user) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } else if (!user) {
+      res.status(404).json({ error: 'User not found' });
+    } else {
+      res.json(user);
+    }
+  });
+},
+
 
   login: async (req, res) => {
     console.log("Login just happend");
@@ -44,7 +58,7 @@ module.exports = {
       return res.sendStatus(400);
     } 
 
-    const correctPassword = await bcrypt.compare(
+    const correctPassword = bcrypt.compare(
       req.body.password,
       // @ts-ignore
       user.password
@@ -72,7 +86,7 @@ module.exports = {
       secure: true,
       sameSite: 'None', 
     });
-    return res.status(200).json({ message: "Login successful" , token: userToken });
+    return res.status(200).json({ message: "Login successful" , token: userToken ,id: user._id });
   },
 
   logout: (req, res) => {
