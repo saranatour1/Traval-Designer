@@ -7,18 +7,30 @@ const TripSchema = new Schema(
     title: {
       type: String,
       required: [true, "Please add a title"],
-      minlength: [5, "Please add a title that is at least 5 characters or more!"],
-      maxlength: [100, "Please reduce the size of the title to be less than 100 characters!"],
+      minlength: [
+        5,
+        "Please add a title that is at least 5 characters or more!",
+      ],
+      maxlength: [
+        100,
+        "Please reduce the size of the title to be less than 100 characters!",
+      ],
     },
     content: {
       type: String,
-      maxlength: [1000, "Please make the description less than 1000 characters!"],
+      maxlength: [
+        1000,
+        "Please make the description less than 1000 characters!",
+      ],
     },
     likes: {
-      type: Number,
-      default: 0,
+      like: {
+        type: Number,
+        default: 0,
+      },
+      likedBy: [{ type: Schema.Types.ObjectId, ref: "User" }],
     },
-    likedBy: [{ type: Schema.Types.ObjectId, ref: "User" }],
+
     comments: [
       {
         content: {
@@ -31,11 +43,11 @@ const TripSchema = new Schema(
         },
         createdAt: {
           type: Date,
-          default: new Date,
+          default: new Date(),
         },
         updatedAt: {
           type: Date,
-          default: new Date,
+          default: new Date(),
         },
       },
     ],
@@ -59,11 +71,11 @@ const TripSchema = new Schema(
         },
         createdAt: {
           type: Date,
-          default: new Date,
+          default: new Date(),
         },
         updatedAt: {
           type: Date,
-          default: new Date,
+          default: new Date(),
         },
       },
     ],

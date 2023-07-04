@@ -37,7 +37,7 @@ function Nav() {
   const openNotifications = () => {
     setIsNOpen(!isNOpen);
   };
-  console.log(window.innerWidth);
+  // console.log(window.innerWidth);
 
   useEffect(() => {
     const handleResize = () => {

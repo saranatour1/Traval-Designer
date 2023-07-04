@@ -3,103 +3,148 @@ import React from "react";
 
 import { useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
-import ToDoList from "./ToDoList";
 import Collab from "./Collab";
-import { useEffect } from "react";
+import ToDoList from "./ToDoList";
 import VerticalLinearStepper from "./VerticalLinearStepper";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-function PostForm({ onClickProp ,users }) {
+function PostForm({ onClickProp, users , onSubmitProp  }) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [labels, setLabels] = useState([]);
   const [label, setLabel] = useState("");
   const [toDoList, setToDoList] = useState([]);
   const [collab, setCollab] = useState([]);
+  const [loggedInUser , setLoggedInUser] = useState('');
+
+  // const navigate = useNavigate();
 
 
+  useEffect(() => {
+    const userId = localStorage.getItem('userId');
+    setLoggedInUser(userId);
+  }, []);
 
-console.log(title , content)
+  
+  // console.log('this is the title in the post form' , title);
+  // console.log('this is the content in the post form' , content);
+  // console.log('these are the labels' , labels);
+  // console.log('toDoList' , toDoList );
+  // console.log('collab' , collab);
 
-const steps = [
-  {
-    label: 'add title and content',
-    description: <>
-    <input
-      className="title bg-gray-100 border border-gray-300 p-2 mb-4 outline-none"
-      spellCheck="false"
-      placeholder="Title"
-      type="text"
-      value={title}
-      onChange={(e)=>setTitle(e.target.value)}
-    />
-    <textarea
-      className="description bg-gray-100 sec p-3 h-60 border border-gray-300 outline-none"
-      spellCheck="false"
-      placeholder="Describe everything about this post here"
-      value={content}
-      onChange={(e)=>setContent(e.target.value)}
-    ></textarea>
-    </>,
-  },
-  {
-    label: 'add labels',
-    description:
-    <div>
-    <label htmlFor="labels" className="text-gray-800 font-semibold">
-      Add Label:
-    </label>
-    <div className="my-6 flex items-center">
-      <input
-        type="text"
-        className="w-1/2 px-3 py-2 border border-gray-300 rounded-lg bg-slate-200 text-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-        onChange={(e) => setLabel(e.target.value)}
-        value={label}
-      />
-      <button
-        onClick={() => {
-          setLabels([...labels, label]);
-          setLabel("");
-        }}
-        className="ml-4 px-4 py-2 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600 focus:outline-none focus:bg-indigo-600"
-      >
-        Add
-      </button>
-      <div className="ml-4">
-        {labels.map((item, idx) => (
-          <span
-            key={idx}
-            className="inline-block px-3 py-1 text-sm font-semibold bg-gray-200 text-gray-800 rounded-full mr-2"
-          >
-            {item}
-          </span>
-        ))}
-      </div>
-    </div>
-  </div>,
-  },
-  {
-    label: 'add to do items',
-    description: <div>
-    <ToDoList onAddProp={(items) => setToDoList(items)} />
-  </div>,
 
-  },
-  {
-    label: 'add collaborators',
-    description: <div>
-    <Collab users={users}/>
-  </div>
-,
+  console.log('on Submit')
 
-  },
+  const handleSubmit = () => {
+    // post fetch request
+    fetch(`http://localhost:8000/api/trips/${loggedInUser}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ title, content, toDoList, collab, labels }),
+    })
+      .then(response => {
+
+        return response.json();
+      })
+      .then(data => {
+        console.log(data);
+        // console.log(data, 'in the post form');
+        onSubmitProp(data);
+        onClickProp();
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
   
 
-];
+
+
+
+
+  const steps = [
+    {
+      label: "add title and content",
+      description: (
+        <>
+          <input
+            className="title bg-gray-100 border border-gray-300 p-2 mb-4 outline-none"
+            spellCheck="false"
+            placeholder="Title"
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <textarea
+            className="description bg-gray-100 sec p-3 h-60 border border-gray-300 outline-none"
+            spellCheck="false"
+            placeholder="Describe everything about this post here"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+          ></textarea>
+        </>
+      ),
+    },
+    {
+      label: "add labels",
+      description: (
+        <div>
+          <label htmlFor="labels" className="text-gray-800 font-semibold">
+            Add Label:
+          </label>
+          <div className="my-6 flex items-center">
+            <input
+              type="text"
+              className="w-1/2 px-3 py-2 border border-gray-300 rounded-lg bg-slate-200 text-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              onChange={(e) => setLabel(e.target.value)}
+              value={label}
+            />
+            <button
+              onClick={() => {
+                setLabels([...labels, label]);
+                setLabel("");
+              }}
+              className="ml-4 px-4 py-2 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600 focus:outline-none focus:bg-indigo-600"
+            >
+              Add
+            </button>
+            <div className="ml-4">
+              {labels.map((item, idx) => (
+                <span
+                  key={idx}
+                  className="inline-block px-3 py-1 text-sm font-semibold bg-gray-200 text-gray-800 rounded-full mr-2"
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      ),
+    },
+    {
+      label: "add to do items",
+      description: (
+        <div>
+          <ToDoList onAddProp={(items) => setToDoList(items)}  />
+        </div>
+      ),
+    },
+    {
+      label: "add collaborators",
+      description: (
+        <div>
+          <Collab users={users} onChangeProp={(item)=> setCollab(item)} />
+        </div>
+      ),
+    },
+  ];
 
   return (
     <>
-
-
       <form
         onSubmit={(e) => e.preventDefault()}
         className="transition duration-150 ease-in-out overflow-y-auto"
@@ -120,15 +165,15 @@ const steps = [
             <div className="editor mx-auto flex flex-col text-gray-800 border border-gray-300 p-4">
               <VerticalLinearStepper steps={steps} />
               <div className="buttons flex my-10">
-                <div
+                <button
                   className="btn border border-gray-300 p-1 px-4 font-semibold cursor-pointer text-gray-500 ml-auto"
                   onClick={() => onClickProp()}
                 >
                   Cancel
-                </div>
-                <div className="btn border border-indigo-500 p-1 px-4 font-semibold cursor-pointer text-gray-200 ml-2 bg-indigo-500">
+                </button>
+                <button className="btn border border-indigo-500 p-1 px-4 font-semibold cursor-pointer text-gray-200 ml-2 bg-indigo-500" onClick={() =>handleSubmit()}>
                   Post
-                </div>
+                </button>
               </div>
             </div>
           </div>

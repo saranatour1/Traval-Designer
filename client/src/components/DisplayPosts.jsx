@@ -2,7 +2,8 @@ import React from 'react';
 import Post from './Post Components/Post';
 
 function DisplayPosts({ items }) {
-  console.log(items[0]);
+  // console.log(items[0]);
+  console.log(items)
 
   return (
     <div className='mx-auto mt-10'>

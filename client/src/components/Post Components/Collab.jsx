@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function Collab({ users }) {
+function Collab({ users ,onChangeProp }) {
   const [collaborators, setCollaborators] = useState(users);
   const [searchField, setSearchField] = useState("");
   const [selectedCollaborators, setSelectedCollaborators] = useState([]);
@@ -12,12 +12,14 @@ function Collab({ users }) {
 
   const handleAddCollaborator = (collaborator) => {
     setSelectedCollaborators([...selectedCollaborators, collaborator]);
+    onChangeProp([...selectedCollaborators, collaborator])
   };
 
   const handleRemoveCollaborator = (collaborator) => {
     setSelectedCollaborators(
       selectedCollaborators.filter((item) => item._id !== collaborator._id)
     );
+    onChangeProp(selectedCollaborators.filter((item) => item._id !== collaborator._id))
   };
 
   const filteredCollaborators = collaborators.filter((collaborator) => {

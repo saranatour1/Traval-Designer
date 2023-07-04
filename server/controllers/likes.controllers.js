@@ -15,15 +15,14 @@ module.exports = {
         return res.status(404).json({ message: "Trip not found" });
       }
   
-      if (!trip.likedBy.includes(userId)) {
-        trip.likes += 1;
-        trip.likedBy.push(userId);
+      if (!trip.likes.likedBy.includes(userId)) {
+        trip.likes.like += 1;
+        trip.likes.likedBy.push(userId);
 
       } else {
         console.log(userId)
-        trip.likes -= 1;
-        // @ts-ignore
-        trip.likes.likedBy = trip.likedBy.filter((id) => id !== userId);
+        trip.likes.like-= 1;
+        trip.likes.likedBy.pull({ _id: userId });
       }
   
       await trip.save();

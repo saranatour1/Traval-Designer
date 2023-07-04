@@ -6,18 +6,18 @@ import { Link } from "react-router-dom";
 // eslint-disable-next-line react/prop-types
 function Post({ item }) {
   // use state for the number of comments and number of likes
-  const [likes, setLikes] = useState(item.likes);
-  // eslint-disable-next-line react/prop-types
-  const [comments, setComments] = useState(item.comments.length);
+  const [likes, setLikes] = useState(item.likes.like || 0);
+  const [comments, setComments] = useState(item.comments.length || 0);
+  const [likers ,setLikers] = useState(item.likes.likedBy?.map((item, idx) => item._id) || null);
 
-  const [likers ,setLikers] = useState(item.likedBy.map((item, idx) => item._id)); 
-  
+
+
   useEffect(() => {
     const userId = localStorage.getItem('userId');
-    console.log(userId);
+    // console.log(userId);
   }, []);
 
-  console.log(item.likedBy.map((item, idx) => item._id))
+  // console.log(item.likedBy.map((item, idx) => item._id))
   
   const addOrDelete = (postId) => {
     const userId = localStorage.getItem('userId');
@@ -46,7 +46,7 @@ function Post({ item }) {
   };
   
     
-  console.log(likes)
+  // console.log(likes)
 
 
 
