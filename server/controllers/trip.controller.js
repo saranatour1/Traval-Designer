@@ -20,6 +20,7 @@ const createTrip = async (req, res) => {
         const createdTrip = await trip.save();
         res.status(201).json(createdTrip);
     } catch (error) {
+        console.log(error)
         res.status(500).json({ error: 'Server error' });
     }
 };
@@ -46,6 +47,7 @@ const updateTrip = async (req, res) => {
         const updatedTrip = await trip.save();
         res.json(updatedTrip);
     } catch (error) {
+        console.log(error)
         res.status(500).json({ error: 'Server error' });
     }
 };
@@ -69,6 +71,7 @@ const getTripById = async (req, res) => {
     }
     res.json(trip);
   } catch (error) {
+    console.log(error)
     res.status(500).json({ error: 'Server error' });
   }
 };
@@ -81,7 +84,7 @@ const getAllTrips = async (req, res) => {
   try {
     const trips = await Trip.find()
       .populate("author")
-      .populate("likedBy")
+      .populate("likes.likedBy")
       .populate("comments.commentBy")
       .populate("collab")
       .exec();

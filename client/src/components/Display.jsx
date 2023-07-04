@@ -7,7 +7,7 @@ function Display({ places }) {
   // const {data} =places.data;
   useEffect(() => {
     if (places) {
-      console.log("I am here in the display ", places);
+      // console.log("I am here in the display ", places);
       // console.log('I am address object ', places[0].address_object.street1);
     }
   }, [places]);

@@ -8,7 +8,7 @@ import SearchButton from "./Search Bar Components/SearchButton";
 
 function SearchBar({onSubmitResult}) {
   const [search , setSearch] =useState('');
-    console.log(search);
+    // console.log(search);
 
     const handleSearch =() => {
       fetch(`http://localhost:8000/api/places/${search}/findnearbytxt`, {

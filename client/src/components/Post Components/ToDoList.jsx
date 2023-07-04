@@ -5,18 +5,20 @@ import { useState } from 'react';
 function ToDoList({onAddProp }) {
   const [toDoList, setToDoList] = useState([]);
   const[toDoText, setDoText] = useState('');
-console.log(toDoList);
+// console.log(toDoList);
 
 const handleTodoCheckbox = (index) => {
   const updatedList = [...toDoList];
   updatedList[index].checked = !updatedList[index].checked;
-  setToDoList(updatedList); 
+  setToDoList(updatedList);
+  onAddProp(updatedList); 
 };
 
 const handleRemoveTodo = (index) => {
   const updatedList = [...toDoList];
   updatedList.splice(index, 1);
   setToDoList(updatedList);
+  onAddProp(updatedList); 
 };
 
 

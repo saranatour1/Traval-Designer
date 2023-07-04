@@ -61,8 +61,6 @@ function DashBoard() {
   return (
     <>
       <Nav />
-      
-
       <FakeComponent onClickProp ={() => setShowPopUp(!showPopUp)} />
       {posts && <DisplayPosts items={posts}/>}
       {showPopUp && <PostForm onClickProp ={() => setShowPopUp(!showPopUp) }  users={users} />}
