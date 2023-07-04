@@ -11,6 +11,7 @@ import { useEffect } from 'react';
 import SinglePostDetails from './layouts/SinglePostDetails';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import UserProfile from './layouts/UserProfile';
 
 const App = () => {
   const [users , setUsers] =useState({});
@@ -53,6 +54,7 @@ const getUsers = () => {
       <Route path='/signin' element={<SignInPage />}/>
       <Route path='/dashboard' element={<DashBoard users={users} />} />
       <Route path='/post/:postId' element={<SinglePostDetails users={users} />}/>
+      <Route path='/user/:userId' element={<UserProfile />} />
       <Route path ='/test' element={<Test />} />
     </Routes>
 
