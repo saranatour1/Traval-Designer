@@ -1,69 +1,94 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import Collab from "./Collab";
 import ToDoList from "./ToDoList";
 import VerticalLinearStepper from "./VerticalLinearStepper";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
-function PostForm({ onClickProp, users , onSubmitProp  }) {
+function PostForm({ onClickProp, users, onSubmitProp, item, editMode }) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [labels, setLabels] = useState([]);
   const [label, setLabel] = useState("");
   const [toDoList, setToDoList] = useState([]);
   const [collab, setCollab] = useState([]);
-  const [loggedInUser , setLoggedInUser] = useState('');
+  const [loggedInUser, setLoggedInUser] = useState("");
 
   // const navigate = useNavigate();
 
-
   useEffect(() => {
-    const userId = localStorage.getItem('userId');
+    const userId = localStorage.getItem("userId");
     setLoggedInUser(userId);
   }, []);
 
-  
+  useEffect(() => {
+    const userId = localStorage.getItem("userId");
+    setLoggedInUser(userId);
+
+    if (editMode && item) {
+      // Populate the form fields with the data from the object being edited
+      setTitle(item.title);
+      setContent(item.content);
+      setLabels(item.labels);
+      setToDoList(item.toDoList);
+      setCollab(item.collab);
+    }
+  }, [editMode, item]);
+
   // console.log('this is the title in the post form' , title);
   // console.log('this is the content in the post form' , content);
   // console.log('these are the labels' , labels);
   // console.log('toDoList' , toDoList );
   // console.log('collab' , collab);
 
-
-  console.log('on Submit')
+  console.log("on Submit");
 
   const handleSubmit = () => {
     // post fetch request
-    fetch(`http://localhost:8000/api/trips/${loggedInUser}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ title, content, toDoList, collab, labels }),
-    })
-      .then(response => {
-
-        return response.json();
+    if (editMode && item) {
+      fetch(`http://localhost:8000/api/trips/${item._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ title, content, toDoList, collab, labels }),
       })
-      .then(data => {
-        console.log(data);
-        // console.log(data, 'in the post form');
-        onSubmitProp(data);
-        onClickProp();
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+          // console.log(data, 'in the post form');
+          onSubmitProp(data);
+          onClickProp();
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } else {
+      fetch(`http://localhost:8000/api/trips/${loggedInUser}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ title, content, toDoList, collab, labels }),
       })
-      .catch(error => {
-        console.error(error);
-      });
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+          // console.log(data, 'in the post form');
+          onSubmitProp(data);
+          onClickProp();
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
   };
-  
-
-
-
-
 
   const steps = [
     {
@@ -118,6 +143,7 @@ function PostForm({ onClickProp, users , onSubmitProp  }) {
                   className="inline-block px-3 py-1 text-sm font-semibold bg-gray-200 text-gray-800 rounded-full mr-2"
                 >
                   {item}
+                  <button className="ml-1 text-gray-600" onClick={()=> removeLabel(item)}>x</button>
                 </span>
               ))}
             </div>
@@ -129,7 +155,7 @@ function PostForm({ onClickProp, users , onSubmitProp  }) {
       label: "add to do items",
       description: (
         <div>
-          <ToDoList onAddProp={(items) => setToDoList(items)}  />
+          <ToDoList onAddProp={(items) => setToDoList(items)} />
         </div>
       ),
     },
@@ -137,17 +163,26 @@ function PostForm({ onClickProp, users , onSubmitProp  }) {
       label: "add collaborators",
       description: (
         <div>
-          <Collab users={users} onChangeProp={(item)=> setCollab(item)} />
+          <Collab users={users} onChangeProp={(item) => setCollab(item)} />
         </div>
       ),
     },
   ];
 
+  const removeLabel = (label) => {
+  const indexToDelete = labels.indexOf(label);
+  if (indexToDelete !== -1) {
+    const updatedLabels = [...labels]; 
+    updatedLabels.splice(indexToDelete, 1);
+    setLabels(updatedLabels); 
+  }
+}
+
   return (
     <>
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="transition duration-150 ease-in-out overflow-y-auto"
+        className="transition  duration-75 ease-in-out overflow-y-auto"
       >
         <div className="fixed inset-0 flex items-center justify-center bg-opacity-75 bg-gray-900 overflow-y-auto h-100">
           <div className="bg-white w-11/12 md:w-8/12 lg:w-6/12 xl:w-4/12 rounded-lg shadow-lg overflow-y-auto">
@@ -171,7 +206,10 @@ function PostForm({ onClickProp, users , onSubmitProp  }) {
                 >
                   Cancel
                 </button>
-                <button className="btn border border-indigo-500 p-1 px-4 font-semibold cursor-pointer text-gray-200 ml-2 bg-indigo-500" onClick={() =>handleSubmit()}>
+                <button
+                  className="btn border border-indigo-500 p-1 px-4 font-semibold cursor-pointer text-gray-200 ml-2 bg-indigo-500"
+                  onClick={() => handleSubmit()}
+                >
                   Post
                 </button>
               </div>
