@@ -65,7 +65,7 @@ const getTripById = async (req, res) => {
   try {
     const trip = await Trip.findById(req.params.id)
       .populate("author")
-      .populate("likedBy")
+      .populate("likes.likedBy")
       .populate("comments.commentBy")
       .populate("collab")
       .exec();

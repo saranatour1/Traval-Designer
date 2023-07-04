@@ -7,7 +7,7 @@ import Collab from "./Collab";
 import ToDoList from "./ToDoList";
 import VerticalLinearStepper from "./VerticalLinearStepper";
 
-function PostForm({ onClickProp, users, onSubmitProp, item, editMode }) {
+function PostForm({ onClickProp, users, onSubmitProp, item, editMode =false }) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [labels, setLabels] = useState([]);
@@ -35,6 +35,7 @@ function PostForm({ onClickProp, users, onSubmitProp, item, editMode }) {
       setToDoList(item.toDoList);
       setCollab(item.collab);
     }
+
   }, [editMode, item]);
 
   // console.log('this is the title in the post form' , title);
@@ -43,7 +44,7 @@ function PostForm({ onClickProp, users, onSubmitProp, item, editMode }) {
   // console.log('toDoList' , toDoList );
   // console.log('collab' , collab);
 
-  console.log("on Submit");
+  // console.log("on Submit");
 
   const handleSubmit = () => {
     // post fetch request
@@ -63,6 +64,7 @@ function PostForm({ onClickProp, users, onSubmitProp, item, editMode }) {
           // console.log(data, 'in the post form');
           onSubmitProp(data);
           onClickProp();
+       
         })
         .catch((error) => {
           console.error(error);

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
@@ -11,16 +12,17 @@ function Post({ item ,onDeleteProp ,showPopUp , onEdit }) {
   );
   const [isAuthor, setIsAuthor] = useState(false);
   const [user, setUser] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const userId = localStorage.getItem("userId");
     // console.log(userId);
     setUser(userId);
     item.author._id === userId ? setIsAuthor(true) : setIsAuthor(false);
-  }, []);
+  }, [item.author._id]);
 
   // console.log(item.likedBy.map((item, idx) => item._id))
-  console.log(isAuthor);
+  // console.log('Mode' , isAuthor);
   const addOrDelete = (postId) => {
     // const userId = localStorage.getItem('userId');
 
@@ -111,7 +113,7 @@ function Post({ item ,onDeleteProp ,showPopUp , onEdit }) {
         <div>
           <div className="flex items-center justify-between text-slate-500">
             <div className="flex space-x-4 sm:space-x-8">
-              <div className="flex cursor-pointer items-center transition hover:text-slate-600">
+              <div className="flex cursor-pointer items-center transition hover:text-slate-600" onClick={()=>navigate(`/post/${item._id}`)}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="mr-1.5 h-5 w-5"

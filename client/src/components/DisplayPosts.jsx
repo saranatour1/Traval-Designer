@@ -9,7 +9,7 @@ function DisplayPosts({ items ,onDeleteProp ,showPopUp , onEdit }) {
   return (
     <div className='mx-auto mt-10'>
       {items.length > 0 ? (
-        items.map((item, idx) => <Post key={idx} item={item} onDeleteProp={onDeleteProp} showPopUp={showPopUp}  onEdit={ onEdit}/> )
+        items.map((item, idx) => <Post key={idx} item={item} onDeleteProp={onDeleteProp} showPopUp={showPopUp}  onEdit={onEdit} /> )
       ) : (
         <p>No posts to display</p>
       )}
