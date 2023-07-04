@@ -48,7 +48,7 @@ const updateTrip = async (req, res) => {
     trip.toDoList = toDoList;
     trip.collab = collab;
 
-    const updatedTrip = await trip.save();
+    const updatedTrip = await trip.save().then((item) => item.populate("author"));
     return res.json(updatedTrip);
   } catch (error) {
     console.log(error);
@@ -65,7 +65,7 @@ const getTripById = async (req, res) => {
   try {
     const trip = await Trip.findById(req.params.id)
       .populate("author")
-      .populate("likedBy")
+      .populate("likes.likedBy")
       .populate("comments.commentBy")
       .populate("collab")
       .exec();
