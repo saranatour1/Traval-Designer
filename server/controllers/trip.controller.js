@@ -180,6 +180,9 @@ const deleteLabelFromTrip = async (req, res) => {
 };
 
 
+
+
+
 module.exports = {
     createTrip,
     updateTrip,
@@ -189,4 +192,5 @@ module.exports = {
     addLabelToTrip,
     deleteLabelFromTrip,
     editLabelInTrip,
+    
 };

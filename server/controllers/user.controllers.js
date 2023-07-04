@@ -60,6 +60,7 @@ module.exports = {
 
     const correctPassword = bcrypt.compare(
       req.body.password,
+      // @ts-ignore
       user.password
     );
 
@@ -71,6 +72,7 @@ module.exports = {
       {
         id: user._id,
       },
+      // @ts-ignore
       process.env.SECRET_KEY
     );
     

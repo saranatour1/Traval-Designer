@@ -22,6 +22,7 @@ module.exports = {
       } else {
         console.log(userId)
         trip.likes -= 1;
+        // @ts-ignore
         trip.likes.likedBy = trip.likedBy.filter((id) => id !== userId);
       }
   
