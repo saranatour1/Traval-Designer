@@ -10,6 +10,6 @@ module.exports = app => {
     app.post('/api/trips/:id/labels', Trip.addLabelToTrip);
     app.delete('/api/trips/:id/labels/:label', Trip.deleteLabelFromTrip);
     app.put('/api/trips/:id/labels/:label', Trip.editLabelInTrip);
-    app.post('/api/trips/:id/like', Trip.addLikeToTrip);
+    // app.post('/api/trips/:id/like', Trip.addLikeToTrip);
 
 }
