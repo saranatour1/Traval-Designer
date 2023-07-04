@@ -9,7 +9,7 @@ import FakeComponent from '../components/FakeComponent';
 import PostForm from '../components/Post Components/PostForm';
 
 function DashBoard() {
-  const [posts, setPosts] = useState({}) 
+  const [posts, setPosts] = useState([]); 
   const [showPopUp , setShowPopUp]= useState(false);
   const [users , setUsers] =useState({});
 
@@ -39,6 +39,14 @@ function DashBoard() {
       });
   };
 
+  const handleFormSubmit = (item) => {
+    setPosts([item , ...posts]);
+  };
+  
+  
+
+
+
   const getUsers = () => {
     fetch(`http://localhost:8000/api/users`, {
       method: 'GET',
@@ -63,7 +71,7 @@ function DashBoard() {
       <Nav />
       <FakeComponent onClickProp ={() => setShowPopUp(!showPopUp)} />
       {posts && <DisplayPosts items={posts}/>}
-      {showPopUp && <PostForm onClickProp ={() => setShowPopUp(!showPopUp) }  users={users} />}
+      {showPopUp && <PostForm onClickProp={() => setShowPopUp(!showPopUp)} onSubmitProp={handleFormSubmit} users={users} />}
 
     </>
   )

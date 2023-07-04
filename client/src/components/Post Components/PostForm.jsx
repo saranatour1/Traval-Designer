@@ -7,8 +7,9 @@ import Collab from "./Collab";
 import ToDoList from "./ToDoList";
 import VerticalLinearStepper from "./VerticalLinearStepper";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-function PostForm({ onClickProp, users }) {
+function PostForm({ onClickProp, users , onSubmitProp  }) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [labels, setLabels] = useState([]);
@@ -17,6 +18,8 @@ function PostForm({ onClickProp, users }) {
   const [collab, setCollab] = useState([]);
   const [loggedInUser , setLoggedInUser] = useState('');
 
+  // const navigate = useNavigate();
+
 
   useEffect(() => {
     const userId = localStorage.getItem('userId');
@@ -24,44 +27,39 @@ function PostForm({ onClickProp, users }) {
   }, []);
 
   
-  console.log('this is the title in the post form' , title);
-  console.log('this is the content in the post form' , content);
-  console.log('these are the labels' , labels);
-  console.log('toDoList' , toDoList );
-  console.log('collab' , collab);
+  // console.log('this is the title in the post form' , title);
+  // console.log('this is the content in the post form' , content);
+  // console.log('these are the labels' , labels);
+  // console.log('toDoList' , toDoList );
+  // console.log('collab' , collab);
 
 
   console.log('on Submit')
 
-  const handleSubmit =() =>{
+  const handleSubmit = () => {
     // post fetch request
     fetch(`http://localhost:8000/api/trips/${loggedInUser}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ title ,content , toDoList , collab  ,labels }),
-      credentials: 'include', // Include cookies in the request
+      body: JSON.stringify({ title, content, toDoList, collab, labels }),
     })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data)
+      .then(response => {
 
-        const token = data.token;
-        if (token) {
-          localStorage.setItem('token', token);
-          localStorage.setItem('userId', data.id);
-          // navigate('/dashboard');
-        } else {
-          throw new Error('Login failed');
-        }
+        return response.json();
+      })
+      .then(data => {
+        console.log(data);
+        // console.log(data, 'in the post form');
+        onSubmitProp(data);
+        onClickProp();
       })
       .catch(error => {
         console.error(error);
       });
-
-
-  }
+  };
+  
 
 
 
@@ -167,15 +165,15 @@ function PostForm({ onClickProp, users }) {
             <div className="editor mx-auto flex flex-col text-gray-800 border border-gray-300 p-4">
               <VerticalLinearStepper steps={steps} />
               <div className="buttons flex my-10">
-                <div
+                <button
                   className="btn border border-gray-300 p-1 px-4 font-semibold cursor-pointer text-gray-500 ml-auto"
                   onClick={() => onClickProp()}
                 >
                   Cancel
-                </div>
-                <div className="btn border border-indigo-500 p-1 px-4 font-semibold cursor-pointer text-gray-200 ml-2 bg-indigo-500">
+                </button>
+                <button className="btn border border-indigo-500 p-1 px-4 font-semibold cursor-pointer text-gray-200 ml-2 bg-indigo-500" onClick={() =>handleSubmit()}>
                   Post
-                </div>
+                </button>
               </div>
             </div>
           </div>
