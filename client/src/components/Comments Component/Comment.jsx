@@ -6,6 +6,7 @@ import axios from 'axios';
 
 function Comment({ comment, deleteComment, postId }) {
   const [loggedInUser, setLoggedInUser] = useState('');
+  const [comments,setComment]=useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,8 +19,17 @@ function Comment({ comment, deleteComment, postId }) {
 
   // add the update comment
   const editComment = () => {
-    // TODO: Implement editComment functionality
-  };
+    
+    axios
+    .put(`http://localhost:8000/api/trips/comments/${comment._id}`)
+    .then((res) => {
+      console.log(res.data);
+      setComment(res.data);
+      navigate(`/post/${postId}`);
+
+    })
+    .catch((err) => console.log(err));
+};
 
   // add the delete comment
   const deleteComments = () => {
@@ -54,7 +64,7 @@ function Comment({ comment, deleteComment, postId }) {
                     <MdDeleteOutline />
                   </button>
                   <button className="text-gray-500 text-xl" onClick={editComment}>
-                    <AiOutlineEdit />
+                    <AiOutlineEdit  />
                   </button>
                 </>
               ) : null}
@@ -65,6 +75,7 @@ function Comment({ comment, deleteComment, postId }) {
         <p className="-mt-4 text-gray-500">{comment.content}</p>
       </div>
     </div>
+    
   );
 }
 
