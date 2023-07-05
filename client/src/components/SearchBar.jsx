@@ -52,6 +52,10 @@ function SearchBar({ onSubmitResult, getErrors }) {
         if(data.json.length <=0){
           addError("No Valid data from the API");
         }
+        if(!data.json){
+          addError("No Valid data from the API");
+        }
+
 
         onSubmitResult(data.json);
         // console.log(data);
