@@ -100,7 +100,7 @@ function SinglePostDetails({ users }) {
           <p>Loading post...</p>
         )}
         {showPopUp && (
-          <PostForm onClickProp={() => {setShowPopUp(!showPopUp); if (!showPopUp) { setEditMode(false);} }}onSubmitProp={handleFormSubmit}users={users} item={post} editMode={editMode} />
+          <PostForm onClickProp={() => {setShowPopUp(!showPopUp); if (!showPopUp) { setEditMode(false);} }}onSubmitProp={handleFormSubmit} users={users} item={post} editMode={editMode} />
         )}
       </div>
     </>

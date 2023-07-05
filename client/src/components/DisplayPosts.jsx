@@ -5,7 +5,7 @@ import Post from './Post Components/Post';
 function DisplayPosts({ items ,onDeleteProp ,showPopUp , onEdit }) {
   // console.log(items[0]);
   // console.log(items)
-
+  console.log(items);
   return (
     <div className='mx-auto mt-10'>
       {items.length > 0 ? (

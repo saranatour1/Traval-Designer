@@ -6,8 +6,9 @@ module.exports = app => {
     app.get('/api/trips', Trip.getAllTrips);
     app.put('/api/trips/:id', Trip.updateTrip);
     app.get('/api/trips/:id', Trip.getTripById);
-    app.get('/api/trips/user/:id', Trip.getTripByAuthor);
     app.delete('/api/trips/:id', Trip.deleteTrip);
+    app.get('/api/trips/user/:id', Trip.getTripByAuthor);
+    app.get('/api/trips/user/cllab/:id', Trip.getTripByCollab);
     app.post('/api/trips/:id/labels', Trip.addLabelToTrip);
     app.delete('/api/trips/:id/labels/:label', Trip.deleteLabelFromTrip);
     app.put('/api/trips/:id/labels/:label', Trip.editLabelInTrip);

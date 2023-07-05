@@ -64,8 +64,6 @@ function Post({ item ,onDeleteProp ,showPopUp , onEdit }) {
       .catch((error) => {
         console.error(error);
       });
-
-
   };
 
   // console.log(likes)
