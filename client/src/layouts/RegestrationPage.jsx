@@ -25,8 +25,6 @@ function RegestrationPage() {
   
   const handleRegister = () => {
 
-  
-
     // Perform validation
 
     if (firstName.trim() === '') {
