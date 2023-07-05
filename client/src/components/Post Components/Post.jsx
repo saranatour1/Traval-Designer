@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
-function Post({ item }) {
+function Post({ item}) {
   // use state for the number of comments and number of likes
   const [likes, setLikes] = useState(item.likes.like || 0);
   const [comments, setComments] = useState(item.comments.length || 0);
@@ -94,6 +94,7 @@ function Post({ item }) {
           </div>
         </div>
       </div>
+      
     </>
   );
 }
