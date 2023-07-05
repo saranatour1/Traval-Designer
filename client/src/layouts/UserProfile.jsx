@@ -108,10 +108,8 @@ function UserProfile({users}) {
   return (
     <>
       <Nav />
-      <div>
-        UserProfile
-        {/* Render user information from loggedUser state */}
-          <p>{otherUser.firstName}</p>
+      <div className=' mb-10'>
+          <div className=' h-12'></div>
           <UserCard user={loggedUser} otherUser={otherUser} collab={collabPosts.length} normalPosts ={posts.length} />
           <FullWidthTabs items={posts} users={users} collab={collabPosts}  />
 

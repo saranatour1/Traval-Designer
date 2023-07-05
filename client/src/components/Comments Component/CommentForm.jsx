@@ -48,7 +48,7 @@ const getPost = () => {
 
   return (
     <>
-      <div className="flex mx-auto items-center justify-center shadow-lg  mt-1 mb-4 max-w-lg">
+      <div className="flex mx-auto items-center justify-center shadow-lg  mt-3 mb-4 max-w-lg">
         <form className="w-full max-w-xl bg-white rounded-lg px-4 pt-2" onSubmit={e=> e.preventDefault()}>
           <div className="flex flex-wrap -mx-3 mb-6">
             <h2 className="px-4 pt-3 pb-2 text-gray-800 text-lg">
