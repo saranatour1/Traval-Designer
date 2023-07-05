@@ -38,8 +38,11 @@ function RegestrationPage() {
         const token = data.token;
         if (token) {
           localStorage.setItem('token', token);
+          localStorage.setItem('userId', data.id);
         }
+
         navigate('/signin');
+
       }
 
       console.log(data); 
