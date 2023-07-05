@@ -1,7 +1,17 @@
 import React from 'react';
+import { useEffect } from 'react';
+import { useState } from 'react';
 import { AiOutlineEdit } from 'react-icons/ai';
 
-function UserCard({user }) {
+function UserCard({user, otherUser }) {
+  const [isLogged , setIsLogged]=useState(false);
+
+  useEffect(() => {
+    user._id ===otherUser._id ? setIsLogged(true):setIsLogged(false);
+  }, [otherUser._id, user._id]);
+
+  console.log()
+
   return (
     <>
       <div className="w-full flex justify-center items-center">
@@ -12,7 +22,6 @@ function UserCard({user }) {
             alt=""
           />
         </div>
-
         <div className="h-56 mx-4 w-5/6 bg-blue-400 rounded-3xl shadow-md sm:w-80 sm:mx-0">
           <div className="h-1/2 w-full flex justify-between items-baseline px-3 py-5">
             <h1 className="text-white text-xl font-bold tracking-wide">Profile</h1>

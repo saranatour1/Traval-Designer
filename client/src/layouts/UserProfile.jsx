@@ -2,22 +2,23 @@ import UserCard from '../components/Profile Component/UserCard';
 import Nav from '../components/Nav';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import DisplayPosts from '../components/DisplayPosts';
+
+import FullWidthTabs from '../components/Profile Component/FullWidthTabs';
+
 
 function UserProfile() {
   const { userId } = useParams();
   const [loggedUser, setLoggedUser] = useState({}); // refactor this tommorow
-  const [posts , setPosts] =useState([]);
-  const [showPopUp , setShowPopUp]= useState(false);
+  const [otherUser, setOtherUser] = useState({}); 
 
-  const[editMode , setEditMode] = useState(false); // always false
-  const[selectedPost , setSelectedPost] =useState({});
+  const [posts , setPosts] =useState([]);
+
 
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    findLoggedInUser();
+    findOtherUser();
   }, [userId]);
 
   useEffect(() => {
@@ -50,34 +51,26 @@ function UserProfile() {
 
 
 
-  const findLoggedInUser = () => {
+  const findOtherUser = () => {
     fetch(`http://localhost:8000/api/user/${userId}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
           },
         })
-  .then(response => {
-    return response.json();
-  })
-  .then(data => {
-    console.log(data);
-    setLoggedUser(data);
-  })
-  .catch(error => {
-    console.error(error);
-  });
+      .then(response => {
+        return response.json();
+      })
+      .then(data => {
+        console.log(data);
+        setLoggedUser(data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
   };
 
-  const deleteItem =(Item) =>{
-    setPosts(posts.filter((post)=> post._id != Item));
-  } 
 
-  const editModeOn = (item) =>{
-    setEditMode(true);
-    setSelectedPost(item);
-  }
-  
 
   return (
     <>
@@ -85,13 +78,9 @@ function UserProfile() {
       <div>
         UserProfile
         {/* Render user information from loggedUser state */}
-        <p>{loggedUser.firstName}</p>
-
-        <UserCard user={loggedUser} />
-        <div className='mx-auto '>
-        {posts && <DisplayPosts items={posts} onDeleteProp={(item)=> deleteItem(item)} showPopUp={() => setShowPopUp(!showPopUp)}  onEdit={(item)=> editModeOn(item)}/>}
-
-        </div>
+          <p>{loggedUser.firstName}</p>
+          <UserCard user={loggedUser} otherUser={otherUser} />
+          <FullWidthTabs items={posts} />
 
       </div>
     </>

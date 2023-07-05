@@ -13,11 +13,15 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.13.6",
+    "@mui/styled-engine-sc": "^5.12.0",
+    "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.10.1",
     "react-router-dom": "^6.14.1",
-    "socket.io-client": "^4.7.1"
+    "react-swipeable-views": "^0.14.0",
+    "socket.io-client": "^4.7.1",
+    "styled-components": "^6.0.2"
   },
   "devDependencies": {
     "@types/react": "^18.2.14",
