@@ -28,9 +28,7 @@ function UserCard({user, otherUser , collab ,normalPosts }) {
           <div className="h-1/2 w-full flex justify-between items-baseline px-3 py-5">
             <h1 className="text-white text-xl font-bold tracking-wide">Profile</h1>
 
-            {isLogged &&  <button className="text-blue text-lg focus:outline-none" onClick={() => console.log('hello')}>
-                edit
-            </button>}
+
           </div>
           <div className="bg-white h-1/2 w-full rounded-3xl flex flex-col justify-around items-center">
             <div className="w-full h-1/2 flex justify-between items-center px-3 pt-2">

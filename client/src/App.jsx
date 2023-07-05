@@ -12,6 +12,7 @@ import SinglePostDetails from './layouts/SinglePostDetails';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserProfile from './layouts/UserProfile';
+import Team from './layouts/Team';
 
 const App = () => {
   const [users , setUsers] =useState({});
@@ -55,6 +56,7 @@ const getUsers = () => {
       <Route path='/dashboard' element={<DashBoard users={users} />} />
       <Route path='/post/:postId' element={<SinglePostDetails users={users} />}/>
       <Route path='/user/:userId' element={<UserProfile users={users} />} />
+      <Route path='/team' element={<Team />} />
       <Route path ='/test' element={<Test />} />
     </Routes>
 
