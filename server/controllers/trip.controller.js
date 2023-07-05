@@ -8,6 +8,34 @@ const createTrip = async (req, res) => {
     const { title, content, labels, toDoList, collab } = req.body;
     const author = req.params.authorId;
 
+    // Validate required fields
+    if (!title || !content || !labels || !toDoList || !collab) {
+      return res.status(400).json({ error: "Missing required fields" });
+    }
+
+
+    if (title.length < 5) {
+      return res.status(400).json({ error: "Title should be at least 5 characters long" });
+    }
+
+    if (content.length > 1000) {
+      return res.status(400).json({ error: "Content should not exceed 1000 characters" });
+    }
+
+    if (labels.length > 5) {
+      return res.status(400).json({ error: "You can only add up to 5 labels" });
+    }
+
+    if (toDoList.length > 10) {
+      return res.status(400).json({ error: "You can only add up to 10 to-do items" });
+    }
+
+    if (collab.length > 3) {
+      return res.status(400).json({ error: "You can only add up to 3 collaborators" });
+    }
+
+
+
     const trip = new Trip({
       title,
       content,
@@ -17,7 +45,6 @@ const createTrip = async (req, res) => {
       collab,
     });
 
-    // solution to populate after save https://stackoverflow.com/a/50334013/13835732
     let createdTrip = await trip
       .save()
       .then((item) => item.populate("author"))
@@ -29,6 +56,7 @@ const createTrip = async (req, res) => {
     return res.status(500).json({ error: "Server error" });
   }
 };
+
 
 // @desc    Update a trip
 // @route   PUT /trips/:id
@@ -52,7 +80,7 @@ const updateTrip = async (req, res) => {
     return res.json(updatedTrip);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: "Server error" });
+     return res.status(500).json({ error: "Server error" });
   }
 };
 

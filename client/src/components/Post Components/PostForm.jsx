@@ -15,6 +15,7 @@ function PostForm({ onClickProp, users, onSubmitProp, item, editMode =false }) {
   const [toDoList, setToDoList] = useState([]);
   const [collab, setCollab] = useState([]);
   const [loggedInUser, setLoggedInUser] = useState("");
+  const [errors, setErrors] =useState([]);
 
   // const navigate = useNavigate();
 
@@ -39,8 +40,45 @@ function PostForm({ onClickProp, users, onSubmitProp, item, editMode =false }) {
   }, [editMode, item]);
 
 
+  function removeErrorAfterDelay(index, delay, setError) {
+    setTimeout(() => {
+      setError((prevErrors) => prevErrors.filter((_, i) => i !== index));
+    }, delay);
+  }
+
+  function addError(errorMessage) {
+    const newErrors = [...errors, errorMessage];
+    setErrors(newErrors);
+
+    const index = newErrors.length - 1;
+    removeErrorAfterDelay(index, 6000, setErrors);
+  }
+
 
   const handleSubmit = () => {
+
+    if (title.trim() === '') {
+      addError('Title is required');
+    }
+  
+    if (content.trim() === '') {
+      addError('Content is required');
+    }
+  
+    if (labels.length === 0) {
+      addError('At least one label is required');
+    }
+  
+    if (toDoList.length === 0) {
+      addError('At least one to-do item is required');
+    }
+  
+    if (collab.length === 0) {
+      addError('At least one collaborator is required');
+    }
+
+
+
     // post fetch request
     if (editMode && item) {
       fetch(`http://localhost:8000/api/trips/${item._id}`, {
@@ -54,7 +92,7 @@ function PostForm({ onClickProp, users, onSubmitProp, item, editMode =false }) {
           return response.json();
         })
         .then((data) => {
-
+          console.log(data)
           onSubmitProp(data);
           onClickProp();
        
@@ -190,7 +228,9 @@ function PostForm({ onClickProp, users, onSubmitProp, item, editMode =false }) {
                 </button>
               </div>
             </div>
-
+        {errors.map((item, idx) => (
+          <p key={idx} className="text-red-500 mt-2">{item}</p>
+        ))}
             <div className="editor mx-auto flex flex-col text-gray-800 border border-gray-300 p-4">
               <VerticalLinearStepper steps={steps} />
               <div className="buttons flex my-10">
