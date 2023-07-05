@@ -85,9 +85,9 @@ function SinglePostDetails({ users }) {
   return (
     <>
       <Nav />
-      <div className="flex min-h-screen justify-center items-center">
+      <div className="flex min-h-screen justify-center items-center flex-col">
         {post._id ? (
-          <div>
+            <>
             <Post
               item={post}
               onDeleteProp={item => deletePost(item)}
@@ -98,8 +98,7 @@ function SinglePostDetails({ users }) {
             <CommentForm author={loggedInUser} postId ={post._id} updateComment={(post) => setPost(post)} editComments={(item)=>{editComments(item)}} />
             
             {post.comments && <CommentDisplay postId={post._id} comments={post.comments} deleteComment={(item)=>{deleteComment(item)}}/>}
-
-          </div>
+</>
         ) : (
           <p>Loading post...</p>
         )}
