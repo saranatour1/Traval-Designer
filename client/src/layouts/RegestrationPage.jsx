@@ -75,6 +75,7 @@ function RegestrationPage() {
           localStorage.setItem('token', token);
           localStorage.setItem('userId', data.id);
         }
+
         navigate('/signin');
       }
 
