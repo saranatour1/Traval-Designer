@@ -1,27 +1,28 @@
-﻿## Table of Contents
-- [Introduction](#Introduction)
+## Table of Contents
+
+- [Introduction](#introduction---travel-designer-an-application-for-sharing-travel-ideas)
 - [Setup](#setup)
-- [Backstory](#Backstory)
-- [Contributers](#Contributers)
-- [Tools used ](#Tools-used)
-- [Functionality](#Functionality)
-  - [Sign in and Sign Up pages](#Sign-in-and-Sign-Up-pages)
-    - [Demo](#Demo)
-  - [dashboard ](#dashboard)
-    - [Demo](#Demo)
-  - [Logged in profile pages](#Logged-in-profile-pages) 
-    - [Demo](#Demo)
-  - [other's profiles](#other's-profiles)
-    - [Demo](#Demo)
-  - [messages](#messages)
-    - [Demo](#Demo)
-  - [other functions](#other-functions)
-    - [Search](#Search)
-      - [Demo](#Demo)
-    - [Custom error pages](#Custom-error-pages) 
-      - [Demo](#Demo)
-    - [issues](#issues)
- - [Conclusion](#Conclusion) 
+- [Backstory](#backstory)
+- [Contributors](#contributors)
+- [Tools used](#tools-used)
+- [Functionality](#functionality)
+  - [Sign in and Sign Up pages](#sign-in-and-sign-up-pages)
+    - [Demo](#demo)
+  - [Dashboard](#dashboard)
+    - [Demo](#demo)
+  - [Logged in profile pages](#logged-in-profile-pages) 
+    - [Demo](#demo)
+  - [Other's profiles](#others-profiles)
+    - [Demo](#demo)
+  - [Messages](#messages)
+    - [Demo](#demo)
+  - [Other functions](#other-functions)
+    - [Search](#search)
+      - [Demo](#demo)
+    - [Custom error pages](#custom-error-pages) 
+      - [Demo](#demo)
+    - [Issues](#issues)
+- [Conclusion](#conclusion)
     
 
 
@@ -178,28 +179,41 @@ Upon sucseefull sign in you will be met with this dashboard
  - you can delete your posts or your comments, you can edit your post as well. 
 ![Screen Shot 2023-07-06 at 00 03 57](https://github.com/saranatour1/Traval-Designer/assets/77834808/d73d2276-42a4-4f70-8822-6ffcd3f46743)
 
+### Post and Comment Page : 
+- when you click on a post, you will see the post details and people who commented on it and you can comment yourself!
+  ![Screen Shot 2023-07-06 at 00 12 45](https://github.com/saranatour1/Traval-Designer/assets/77834808/7688748c-51e4-4799-ae4d-63ecb2e05901)
 
-# Conclusion:
+### The profile page :
+This is where you will see your posts, information , and posts you have collaborated on (github wanna be) <sub><sup>Please don't sue , we are open for work</sup></sub> , you will edit your posts, and delete them if you want. 
+![Screen Shot 2023-07-06 at 00 15 24](https://github.com/saranatour1/Traval-Designer/assets/77834808/06a64869-74da-4c3a-91cc-0ebc9be7d52a)
 
-This was a fun project, and we enjoyed working together as a team to ensure its success. We demonstrated time management and soft skills by listening to each other and utilizing our strengths to complete tasks efficiently. We were amazed at how differently each of us approached problem-solving and delighted to work in a respectful team environment.
-
-As a team, we believe this project has a future, and there are still some functionalities we did not have time to implement. We plan to revisit the repository, clean up the code, and add more features to make it even more presentable.
-
-We would love to hear your feedback and criticism if you end up using our code. Please don't hesitate to reach out to us. And if you find our project useful, please consider giving us a star on the repository.
-
-Finally, we learned a lot during this project in a limited period of time. We were all eager to learn and help each other, which made the experience even more enjoyable.
-
-Thank you for taking the time to read about our project!
-
-- Creators of Moods 
-
-  ![image](https://user-images.githubusercontent.com/77834808/230228434-15fbe2c1-dc37-4518-9f00-9affb391acb0.png)
+### Our team page : 
+**Becasue we can** 
+![Screen Shot 2023-07-06 at 00 34 53](https://github.com/saranatour1/Traval-Designer/assets/77834808/1c7b24ae-7116-437f-a934-5b3baaf30ff2)
 
 
+ 
+# Conclusion
+
+Working on this project has been an incredible experience for our team. We thoroughly enjoyed collaborating and leveraging our individual strengths to ensure the success of the project. Throughout the development process, we showcased effective time management and communication skills, allowing us to work efficiently and harmoniously.
+
+One of the remarkable aspects of our team was the diverse problem-solving approaches each member brought to the table. This diversity not only enriched our project but also fostered a respectful and collaborative environment where everyone's ideas were valued.
+
+Although our project is already functional and delivers on its core objectives, we believe it has even more potential for growth. There are additional features and functionalities that we would like to implement in the future, enhancing the project's overall value and user experience. We plan to revisit the codebase, optimize it further, and continue adding new features to make it even more impressive.
+
+Your feedback and criticism are essential to us, as they help us improve and refine our project. If you decide to use our code or have any suggestions, please don't hesitate to reach out to us. We would greatly appreciate it if you could show your support by giving us a star on the repository.
+
+This project has provided us with valuable learning opportunities within a limited timeframe. We all shared a strong passion for learning and assisting one another, which made the journey even more enjoyable and rewarding.
+
+Thank you for taking the time to explore our project and learn about our experiences.
 
 
+- Creators of Travel and Design 
 
-# Traval-Designer
+ <img src="client/src/assets/logo.svg" alt="Project Logo" width="256px" height="256px">
+
+
+# issues and refs
 ## Styled Ccomponents Source:
 - The Sign Up and Sign In Form [Link](https://tailwindcomponents.com/component/simple-sign-in) 
 - Simple Toast : [Link](https://tailwindcomponents.com/component/simple-toast)
