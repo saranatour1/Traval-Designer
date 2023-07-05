@@ -40,7 +40,7 @@ function RegestrationPage() {
           localStorage.setItem('token', token);
           localStorage.setItem('userId', data.id);
         }
-        navigate('/dashboard');
+        navigate('/signin');
       }
 
       console.log(data); 
