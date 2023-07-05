@@ -6,19 +6,15 @@ import { useNavigate, useParams } from 'react-router-dom';
 import FullWidthTabs from '../components/Profile Component/FullWidthTabs';
 
 
+// # add prop type validation
 function UserProfile({users}) {
   const { userId } = useParams();
   const [loggedUser, setLoggedUser] = useState({}); // refactor this tommorow
   const [otherUser, setOtherUser] = useState({}); 
 
   const [posts , setPosts] =useState([]);
-  const [isLogged ,setIsLogged] = useState(false);
 
-
-  const navigate = useNavigate();
-
-  const [editMode, setEditMode] = useState(false);
-const [selectedPost, setSelectedPost] = useState({});
+  const [collabPosts , setCollabPosts] = useState([]);
 
 
 
@@ -28,6 +24,10 @@ const [selectedPost, setSelectedPost] = useState({});
 
   useEffect(() => {
     findPostsWhereUserIsAuthor();
+  }, []);
+
+  useEffect(() => {
+    findPostsWhereUserIsCollab()
   }, []);
 
   useEffect(() => {
@@ -61,6 +61,29 @@ const [selectedPost, setSelectedPost] = useState({});
   }
 
 
+  
+  const findPostsWhereUserIsCollab = () => {
+    fetch(`http://localhost:8000/api/trips/user/collab/${userId}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+      .then(response => {
+        if(response.status === 404){
+          setPosts([]);
+        }
+        return response.json();
+      })
+      .then(data => {
+
+        console.log(data);
+        setCollabPosts(data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
 
 
   const findOtherUser = () => {
@@ -82,10 +105,6 @@ const [selectedPost, setSelectedPost] = useState({});
       });
   };
 
-
-
-
-
   return (
     <>
       <Nav />
@@ -93,8 +112,8 @@ const [selectedPost, setSelectedPost] = useState({});
         UserProfile
         {/* Render user information from loggedUser state */}
           <p>{otherUser.firstName}</p>
-          <UserCard user={loggedUser} otherUser={otherUser} />
-          <FullWidthTabs items={posts} users={users}   />
+          <UserCard user={loggedUser} otherUser={otherUser} collab={collabPosts.length} normalPosts ={posts.length} />
+          <FullWidthTabs items={posts} users={users} collab={collabPosts}  />
 
       </div>
     </>

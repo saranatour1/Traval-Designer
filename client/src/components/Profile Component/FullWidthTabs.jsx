@@ -44,19 +44,26 @@ function a11yProps(index) {
   };
 }
 
-export default function FullWidthTabs({ items, users }) {
+export default function FullWidthTabs({ items, users ,collab }) {
   const theme = useTheme();
   const [value, setValue] = useState(0);
   const [showPopUp, setShowPopUp] = useState(false);
   const [posts, setPosts] = useState([]);
   const [editMode, setEditMode] = useState(false);
   const [selectedPost, setSelectedPost] = useState({});
+  const [collabPosts , setCollabPosts] =useState([]);
 
   useEffect(() => {
     if (items) {
       setPosts(items);
     }
   }, [items]);
+
+  useEffect(() => {
+    if (collab) {
+      setCollabPosts(collab);
+    }
+  }, [collab]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -107,9 +114,9 @@ export default function FullWidthTabs({ items, users }) {
           variant="fullWidth"
           aria-label="full width tabs example"
         >
-          <Tab label="Item One" {...a11yProps(0)} />
-          <Tab label="Item Two" {...a11yProps(1)} />
-          <Tab label="Item Three" {...a11yProps(2)} />
+          <Tab label="Posts" {...a11yProps(0)} />
+          <Tab label="Collaborator Posts" {...a11yProps(1)} />
+          
         </Tabs>
       </AppBar>
       <SwipeableViews
@@ -142,11 +149,16 @@ export default function FullWidthTabs({ items, users }) {
           </div>
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          Item Two
+        {collab && (
+              <DisplayPosts
+                items={collab}
+                onDeleteProp={(postId) => deleteItem(postId)}
+                showPopUp={() => setShowPopUp(!showPopUp)}
+                onEdit={(item) => editModeOn(item)}
+              />
+            )}
         </TabPanel>
-        <TabPanel value={value} index={2} dir={theme.direction}>
-          Item Three
-        </TabPanel>
+
       </SwipeableViews>
     </Box>
   );
