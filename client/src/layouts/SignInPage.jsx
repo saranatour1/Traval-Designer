@@ -92,7 +92,6 @@ function SignInPage() {
           <InputItem onChangeProp={(element) => setPassword(element)} type='password' elId='password' labelText='Password' placeholderText='Your Password' />
           <FormButton btnText='Sign In' onClickProp={handleLogin} />
           <p className="text-sm text-center text-gray-400">Not a Member?   <Link to='/signup' className="text-indigo-400 focus:outline-none focus:underline focus:text-indigo-500 dark:focus:border-indigo-800">Sign Up</Link>!</p>
-
         </form>
       </div>
     </Card>
