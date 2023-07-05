@@ -67,9 +67,11 @@ const deleteComment = async (req, res) => {
     }
 
     // @ts-ignore
-    trip.comments = trip.comments.filter((c) => c._id.toString() !== commentId);
-    const updatedTrip = await trip.save();
-
+    trip.comments.pull({_id:commentId});
+    
+    // trip.comments = trip.comments.filter((c) => c._id.toString() !== commentId);
+      const updatedTrip = await trip.save().then((item) => item.populate('author')).then(item => item.populate('comments.commentBy'))
+      console.log(updatedTrip);
     res.json(updatedTrip);
   } catch (error) {
     res.status(500).json({ error: "Server error" });
