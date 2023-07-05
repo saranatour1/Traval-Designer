@@ -13,8 +13,7 @@ function Comment({ comment, deleteComment, postId }) {
     setLoggedInUser(userId);
   }, []);
 
-  // console.log(loggedInUser);
-  // console.log(comment.commentBy._id)
+
 
   // add the update comment
   const editComment = () => {
@@ -26,7 +25,7 @@ function Comment({ comment, deleteComment, postId }) {
     axios
       .delete(`http://localhost:8000/api/trips/comments/${comment._id}`)
       .then((res) => {
-        console.log(res.data);
+
         deleteComment(res.data);
         navigate(`/post/${postId}`);
       })

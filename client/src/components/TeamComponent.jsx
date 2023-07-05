@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 
 function TeamComponent({team}) {
-  console.log(team)
+  // console.log(team)
   return (
     <div className="">
         <div className="max-w-lg mx-auto my-10  rounded-lg shadow-md p-5">

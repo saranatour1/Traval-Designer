@@ -6,6 +6,9 @@ const jwt = require("jsonwebtoken");
 module.exports = {
   register: (req, res) => {
     console.log("Regestration just happend");
+    if(req.body.email === undefined){
+     return res.status(400).json({ message: "Email is undefinde" });
+    }
     User.create(req.body)
       .then((user) => {
         const userToken = jwt.sign(
@@ -32,7 +35,7 @@ module.exports = {
       const users = await User.find();
       res.json(users);
     } catch (error) {
-      res.status(500).json({ error: "Failed to retrieve users" });
+      return res.status(500).json({ error: "Failed to retrieve users" });
     }
   },
 
@@ -59,8 +62,12 @@ findUser: (req, res) => {
     const user = await User.findOne({ email: req.body.email });
 
     if (user === null) {
-      return res.sendStatus(400);
+      return res.status(400).json({ message: "User Not found " });
     } 
+
+    if(req.body.password.length < 8){
+    return res.status(400).json({ message: "Please enter a password more than 8 char" });
+    }
 
     const correctPassword = bcrypt.compare(
       req.body.password,
@@ -69,7 +76,7 @@ findUser: (req, res) => {
     );
 
     if (!correctPassword) {
-      return res.status(400).json({ error: "Invalid email or password" });
+      return res.status(400).json({ message: "Invalid email or password" });
     } 
 
     const userToken = jwt.sign(
@@ -80,11 +87,6 @@ findUser: (req, res) => {
       process.env.SECRET_KEY
     );
     
-    // const decoded = jwt.verify(userToken, process.env.SECRET_KEY);  
-    // var userId = decoded.id;  
-    // console.log(userId)
-    // console.log('649f3bbd934bfcf0c5f6db4f' ===userId);  
-
     res.cookie('token', userToken, {
       httpOnly: true, 
       secure: true,
