@@ -6,16 +6,21 @@ import { useNavigate, useParams } from 'react-router-dom';
 import FullWidthTabs from '../components/Profile Component/FullWidthTabs';
 
 
-function UserProfile() {
+function UserProfile({users}) {
   const { userId } = useParams();
   const [loggedUser, setLoggedUser] = useState({}); // refactor this tommorow
   const [otherUser, setOtherUser] = useState({}); 
 
   const [posts , setPosts] =useState([]);
-
+  const [isLogged ,setIsLogged] = useState(false);
 
 
   const navigate = useNavigate();
+
+  const [editMode, setEditMode] = useState(false);
+const [selectedPost, setSelectedPost] = useState({});
+
+
 
   useEffect(() => {
     findOtherUser();
@@ -25,8 +30,15 @@ function UserProfile() {
     findPostsWhereUserIsAuthor();
   }, []);
 
+  useEffect(() => {
+    const userId = localStorage.getItem("userId");
+    setLoggedUser(userId);
+  }, []);
+
+
+
   const findPostsWhereUserIsAuthor = () => {
-    fetch(`http://localhost:8000/trips/user/${userId}`, {
+    fetch(`http://localhost:8000/api/trips/user/${userId}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -63,12 +75,14 @@ function UserProfile() {
       })
       .then(data => {
         console.log(data);
-        setLoggedUser(data);
+        setOtherUser(data);
       })
       .catch(error => {
         console.error(error);
       });
   };
+
+
 
 
 
@@ -78,9 +92,9 @@ function UserProfile() {
       <div>
         UserProfile
         {/* Render user information from loggedUser state */}
-          <p>{loggedUser.firstName}</p>
+          <p>{otherUser.firstName}</p>
           <UserCard user={loggedUser} otherUser={otherUser} />
-          <FullWidthTabs items={posts} />
+          <FullWidthTabs items={posts} users={users}   />
 
       </div>
     </>

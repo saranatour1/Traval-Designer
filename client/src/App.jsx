@@ -54,7 +54,7 @@ const getUsers = () => {
       <Route path='/signin' element={<SignInPage />}/>
       <Route path='/dashboard' element={<DashBoard users={users} />} />
       <Route path='/post/:postId' element={<SinglePostDetails users={users} />}/>
-      <Route path='/user/:userId' element={<UserProfile />} />
+      <Route path='/user/:userId' element={<UserProfile users={users} />} />
       <Route path ='/test' element={<Test />} />
     </Routes>
 

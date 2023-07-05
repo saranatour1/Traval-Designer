@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
 import { useTheme } from '@mui/material/styles';
@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
 import DisplayPosts from '../DisplayPosts';
-import { useState } from 'react';
+import PostForm from '../Post Components/PostForm';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -21,7 +21,6 @@ function TabPanel(props) {
       id={`full-width-tabpanel-${index}`}
       aria-labelledby={`full-width-tab-${index}`}
       {...other}
-     
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
@@ -45,16 +44,20 @@ function a11yProps(index) {
   };
 }
 
-export default function FullWidthTabs({ items  }) {
+export default function FullWidthTabs({ items, users }) {
   const theme = useTheme();
   const [value, setValue] = useState(0);
-  const [showPopUp , setShowPopUp]= useState(false);
+  const [showPopUp, setShowPopUp] = useState(false);
+  const [posts, setPosts] = useState([]);
+  const [editMode, setEditMode] = useState(false);
+  const [selectedPost, setSelectedPost] = useState({});
 
-  const[editMode , setEditMode] = useState(false); // always false
-  const[selectedPost , setSelectedPost] =useState({});
+  useEffect(() => {
+    if (items) {
+      setPosts(items);
+    }
+  }, [items]);
 
-  const [posts , setPosts] =useState([]);
-  
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -63,18 +66,38 @@ export default function FullWidthTabs({ items  }) {
     setValue(index);
   };
 
-  const deleteItem =(Item) =>{
-    setPosts(posts.filter((post)=> post._id != Item));
-  } 
+  const deleteItem = (postId) => {
+    setPosts(posts.filter((post) => post._id !== postId));
+  };
 
-  const editModeOn = (item) =>{
+  const editModeOn = (item) => {
     setEditMode(true);
     setSelectedPost(item);
-  }
+  };
 
+  const handleFormSubmit = (editedPost) => {
+    fetch(`http://localhost:8000/api/trips/${editedPost._id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(editedPost),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setPosts((prevPosts) =>
+          prevPosts.map((post) => (post._id === data._id ? data : post))
+        );
+        setEditMode(false);
+        setShowPopUp(false);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   return (
-    <Box sx={{ bgcolor: 'background.paper', width: 500 }} className='mx-auto mt-5'>
+    <Box sx={{ bgcolor: 'background.paper', width: 1000 }} className='mx-auto mt-5 w-full'>
       <AppBar position="static">
         <Tabs
           value={value}
@@ -95,8 +118,27 @@ export default function FullWidthTabs({ items  }) {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-        <div className='mx-auto'>
-            {posts && <DisplayPosts items={posts} onDeleteProp={(item)=> deleteItem(item)} showPopUp={() => setShowPopUp(!showPopUp)}  onEdit={(item)=> editModeOn(item)}/>}
+          <div className='mx-auto'>
+            {posts && (
+              <DisplayPosts
+                items={posts}
+                onDeleteProp={(postId) => deleteItem(postId)}
+                showPopUp={() => setShowPopUp(!showPopUp)}
+                onEdit={(item) => editModeOn(item)}
+              />
+            )}
+            {showPopUp && (
+              <PostForm
+                onClickProp={() => {
+                  setShowPopUp(!showPopUp);
+                  setEditMode(false);
+                }}
+                onSubmitProp={handleFormSubmit}
+                users={users}
+                item={selectedPost}
+                editMode={editMode}
+              />
+            )}
           </div>
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>

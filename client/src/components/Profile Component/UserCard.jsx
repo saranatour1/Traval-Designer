@@ -7,10 +7,10 @@ function UserCard({user, otherUser }) {
   const [isLogged , setIsLogged]=useState(false);
 
   useEffect(() => {
-    user._id ===otherUser._id ? setIsLogged(true):setIsLogged(false);
-  }, [otherUser._id, user._id]);
+    user ===otherUser._id ? setIsLogged(true):setIsLogged(false);
+  }, [otherUser._id, user]);
 
-  console.log()
+
 
   return (
     <>
@@ -25,9 +25,11 @@ function UserCard({user, otherUser }) {
         <div className="h-56 mx-4 w-5/6 bg-blue-400 rounded-3xl shadow-md sm:w-80 sm:mx-0">
           <div className="h-1/2 w-full flex justify-between items-baseline px-3 py-5">
             <h1 className="text-white text-xl font-bold tracking-wide">Profile</h1>
-            <button className="text-white text-lg focus:outline-none" onClick={() => console.log('hello')}>
+
+            {isLogged &&  <button className="text-blue text-lg focus:outline-none" onClick={() => console.log('hello')}>
                 edit
-            </button>
+            </button>}
+
           </div>
 
           <div className="bg-white h-1/2 w-full rounded-3xl flex flex-col justify-around items-center">
@@ -42,7 +44,7 @@ function UserCard({user, otherUser }) {
               </div>
             </div>
             <div className="w-full h-1/2 flex flex-col justify-center items-center">
-              <h1 className="text-gray-700 font-bold text-xl tracking-wide">{user.firstName} {user.lastName}</h1>
+              <h1 className="text-gray-700 font-bold text-xl tracking-wide">{otherUser.firstName} {otherUser.lastName}</h1>
               <h1 className="text-gray-500 text-sm">New York, USA</h1>
             </div>
           </div>
