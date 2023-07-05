@@ -169,6 +169,7 @@ function Post({ item ,onDeleteProp ,showPopUp , onEdit }) {
           </div>
         </div>
       </div>
+      
     </>
   );
 }

@@ -1,11 +1,11 @@
 import React from 'react';
 import Comment from './Comment';
 
-function CommentDisplay({ comments }) {
+function CommentDisplay({ comments ,deleteComment ,postId}) {
   // comments need to be sorted by updatedAt
   return (
     <>
-    {comments.length > 0 ?  comments.map((comment , idx) => <Comment key={idx} comment={comment}/>)  : <p> No Comments To show</p>}
+    {comments.length > 0 ?  comments.map((comment , idx) => <Comment key={idx} postId={postId} comment={comment} deleteComment={deleteComment}/>)  : <p> No Comments To show</p>}
     </>
   );
 }
