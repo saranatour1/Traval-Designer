@@ -34,7 +34,7 @@ function DashBoard({users}) {
       .then(response => response.json())
       .then(data => {
         setPosts(data);
-        console.log(data);
+        // console.log(data);
       })
       .catch(error => {
         console.error(error);
@@ -78,7 +78,7 @@ function DashBoard({users}) {
 
 
   // console.log(selectedPost);
-  console.log(editMode)
+  // console.log(editMode)
 
   return (
     <>

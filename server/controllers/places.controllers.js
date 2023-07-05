@@ -5,6 +5,7 @@ const API_Key = process.env.TRIP_ADVISOR_API_KEY;
 module.exports = {
   findNearbyPlaces: (req, res) => {
     const latLong = req.params.latLong;
+
     // 10 API requests
     const url = `https://api.content.tripadvisor.com/api/v1/location/nearby_search?latLong=${latLong}&radius=20&radiusUnit=km&key=${API_Key}&language=en`;
     const options = { method: "GET", headers: { accept: "application/json" } };
@@ -31,6 +32,15 @@ module.exports = {
     const searchTxt = req.params.searchParam;
     const url = `https://api.content.tripadvisor.com/api/v1/location/search?searchQuery=${searchTxt}&radius=60&radiusUnit=km&key=${API_Key}`;
     const options = { method: "GET", headers: { accept: "application/json" } };
+    if(req.body){
+      console.log( req.params.searchParam)
+    }
+    if(searchTxt <1){
+      return res.status(400).json({ message: "please enter at least more than 3 charecters" });
+    }
+    if (!searchTxt || searchTxt.trim() ===''){
+      return res.status(400).json({ message: "please enter at least more than 3 charecters" });
+    }
 
     fetch(url, options)
       .then((res) => {

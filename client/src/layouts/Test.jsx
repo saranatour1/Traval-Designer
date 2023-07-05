@@ -17,10 +17,10 @@ function Test() {
       .then((response) => response.json())
       .then((data) => {
         setTrip(data);
-        console.log(data);
+        // console.log(data);
       })
       .catch((error) => {
-        console.error(error);
+        // console.error(error);
       });
   }, []);
   
@@ -31,7 +31,7 @@ function Test() {
     <>
     <h1>hi</h1>
 
-<Post item={trip}/>
+{/* <Post item={trip}/> */}
     </>
 
 

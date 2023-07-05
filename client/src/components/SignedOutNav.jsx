@@ -23,4 +23,4 @@ function SignedOutNav() {
   )
 }
 
-export default SignedOutNav
+export default SignedOutNav;

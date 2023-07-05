@@ -41,12 +41,12 @@ function SinglePostDetails({ users }) {
   }, [postId]);
 
   const deletePost = (item) => {
-    console.log(item);
+    // console.log(item);
     navigate('/dashboard');
   };
 
   const editModee = (item) => {
-    console.log(item);
+    // console.log(item);
     setEditMode(true);
     // setSelectedPost(item);
   };
