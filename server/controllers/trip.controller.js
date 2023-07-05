@@ -80,6 +80,48 @@ const getTripById = async (req, res) => {
   }
 };
 
+const getTripByAuthor = async (req, res) => {
+  console.log('hi');
+  try {
+    const trip = await Trip.find({author: req.params.id})
+    .populate("author")
+    .populate("likes.likedBy")
+    .populate("comments.commentBy")
+    .populate("collab")
+    .exec();
+
+    if (!trip) {
+      return res.status(404).json({ error: "Trip not found" });
+    }
+    console.log(trip)
+    return res.json(trip);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Server error" });
+  }
+};
+//Find By collaborator
+
+// const getTripByCollab = async (req, res) => {
+//   try {
+//     const trip = await Trip.find({author: req.params.id})
+//       .populate("author")
+//       .populate("likes.likedBy")
+//       .populate("comments.commentBy")
+//       .populate("collab")
+//       .exec();
+
+//     if (!trip) {
+//       return res.status(404).json({ error: "Trip not found" });
+//     }
+//     return res.json(trip);
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).json({ error: "Server error" });
+//   }
+// };
+
+
 // @desc    Get all trips
 // @route   GET /trips
 // @access  Public
@@ -194,4 +236,5 @@ module.exports = {
   addLabelToTrip,
   deleteLabelFromTrip,
   editLabelInTrip,
+  getTripByAuthor,
 };

@@ -35,19 +35,23 @@ module.exports = {
       res.status(500).json({ error: "Failed to retrieve users" });
     }
   },
-  findUser: (req, res) => {
+
+findUser: (req, res) => {
   const userId = req.params.userId;
-  User.findOne({_id: userId}, (err, user) => {
-    if (err) {
+  User.findOne({ _id: userId })
+    .then(user => {
+      if (!user) {
+        res.status(404).json({ error: 'User not found' });
+      } else {
+        res.json(user);
+      }
+    })
+    .catch(err => {
       console.error(err);
       res.status(500).json({ error: 'Internal Server Error' });
-    } else if (!user) {
-      res.status(404).json({ error: 'User not found' });
-    } else {
-      res.json(user);
-    }
-  });
+    });
 },
+
 
 
   login: async (req, res) => {
