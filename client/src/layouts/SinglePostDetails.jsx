@@ -76,7 +76,11 @@ function SinglePostDetails({ users }) {
     setPost(comment);
 
   }
+  
+  const editComments =(comment)=>{
+    setPost(comment);
 
+  }
 
   return (
     <>
@@ -91,7 +95,7 @@ function SinglePostDetails({ users }) {
               onEdit={item => editModee(item)}
 
             />
-            <CommentForm author={loggedInUser} postId ={post._id} updateComment={(post) => setPost(post)} />
+            <CommentForm author={loggedInUser} postId ={post._id} updateComment={(post) => setPost(post)} editComments={(item)=>{editComments(item)}} />
             
             {post.comments && <CommentDisplay postId={post._id} comments={post.comments} deleteComment={(item)=>{deleteComment(item)}}/>}
 

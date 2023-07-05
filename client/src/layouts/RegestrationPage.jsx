@@ -22,7 +22,32 @@ function RegestrationPage() {
 
   // Here, Using Fetch Instead of axios, it serves the same thing
   // adding less Libraries to do simple tasks is the reason to use fetch over axsios
+  
   const handleRegister = () => {
+
+    // Perform validation
+
+    if (firstName.trim() === '') {
+      addError('First name is required');
+    }
+  
+    if (lastName.trim() === '') {
+      addError('Last name is required');
+    }
+  
+    if (email.trim() === '') {
+      addError('Email address is required');
+    }
+  
+    if (password.trim() === '') {
+      addError('Password is required');
+    }
+  
+    if (password !== confirmPassword) {
+      addError('Passwords do not match');
+    }
+
+
   fetch('http://localhost:8000/api/register', {
     method: 'POST',
     headers: {
@@ -52,7 +77,6 @@ function RegestrationPage() {
         }
 
         navigate('/signin');
-
       }
 
       // console.log(data); 

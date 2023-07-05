@@ -2,7 +2,7 @@
 import React from "react";
 import { useState } from "react";
 
-function CommentForm({author ,postId , updateComment }) {
+function CommentForm({author ,postId , updateComment,editComments }) {
   const [comment , setComment] =useState('')
   
   console.log(comment);
