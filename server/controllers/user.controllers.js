@@ -6,6 +6,9 @@ const jwt = require("jsonwebtoken");
 module.exports = {
   register: (req, res) => {
     console.log("Regestration just happend");
+    if(req.body.email === undefined){
+     return res.status(400).json({ message: "Email is undefinde" });
+    }
     User.create(req.body)
       .then((user) => {
         const userToken = jwt.sign(
@@ -32,7 +35,7 @@ module.exports = {
       const users = await User.find();
       res.json(users);
     } catch (error) {
-      res.status(500).json({ error: "Failed to retrieve users" });
+      return res.status(500).json({ error: "Failed to retrieve users" });
     }
   },
 
