@@ -6,16 +6,17 @@ import { useNavigate, useParams } from 'react-router-dom';
 import FullWidthTabs from '../components/Profile Component/FullWidthTabs';
 
 
-function UserProfile() {
+// # add prop type validation
+function UserProfile({users}) {
   const { userId } = useParams();
   const [loggedUser, setLoggedUser] = useState({}); // refactor this tommorow
   const [otherUser, setOtherUser] = useState({}); 
 
   const [posts , setPosts] =useState([]);
 
+  const [collabPosts , setCollabPosts] = useState([]);
 
 
-  const navigate = useNavigate();
 
   useEffect(() => {
     findOtherUser();
@@ -25,8 +26,19 @@ function UserProfile() {
     findPostsWhereUserIsAuthor();
   }, []);
 
+  useEffect(() => {
+    findPostsWhereUserIsCollab()
+  }, []);
+
+  useEffect(() => {
+    const userId = localStorage.getItem("userId");
+    setLoggedUser(userId);
+  }, []);
+
+
+
   const findPostsWhereUserIsAuthor = () => {
-    fetch(`http://localhost:8000/trips/user/${userId}`, {
+    fetch(`http://localhost:8000/api/trips/user/${userId}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -40,7 +52,7 @@ function UserProfile() {
       })
       .then(data => {
 
-        console.log(data);
+        // console.log(data);
         setPosts(data);
       })
       .catch(error => {
@@ -49,6 +61,29 @@ function UserProfile() {
   }
 
 
+  
+  const findPostsWhereUserIsCollab = () => {
+    fetch(`http://localhost:8000/api/trips/user/collab/${userId}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+      .then(response => {
+        if(response.status === 404){
+          setPosts([]);
+        }
+        return response.json();
+      })
+      .then(data => {
+
+        // console.log(data);
+        setCollabPosts(data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
 
 
   const findOtherUser = () => {
@@ -62,15 +97,13 @@ function UserProfile() {
         return response.json();
       })
       .then(data => {
-        console.log(data);
-        setLoggedUser(data);
+        // console.log(data);
+        setOtherUser(data);
       })
       .catch(error => {
         console.error(error);
       });
   };
-
-
 
   return (
     <>
@@ -78,9 +111,9 @@ function UserProfile() {
       <div>
         UserProfile
         {/* Render user information from loggedUser state */}
-          <p>{loggedUser.firstName}</p>
-          <UserCard user={loggedUser} otherUser={otherUser} />
-          <FullWidthTabs items={posts} />
+          <p>{otherUser.firstName}</p>
+          <UserCard user={loggedUser} otherUser={otherUser} collab={collabPosts.length} normalPosts ={posts.length} />
+          <FullWidthTabs items={posts} users={users} collab={collabPosts}  />
 
       </div>
     </>

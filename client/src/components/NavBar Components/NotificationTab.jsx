@@ -1,15 +1,27 @@
 /* eslint-disable no-unused-vars */
 import React from 'react'
+import { useEffect } from 'react';
+import { useState } from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 function NotificationTab() {
+
+  const [user ,setUser] =useState('');
   const navigate = useNavigate();  
+
+  useEffect(() => {
+    const userId = localStorage.getItem("userId");
+
+    setUser(userId);
+ 
+  }, []);
+
   
   const handleLogout = () => {
     fetch('http://localhost:8000/api/logout', {
       method: 'GET',
     })
       .then(response => {
-        console.log(response); 
+
         localStorage.removeItem('token');
         localStorage.removeItem('userId');
         return response.json();
@@ -17,7 +29,7 @@ function NotificationTab() {
       .then(data => {
 
         navigate('/');
-        console.log(data);
+
       })
       .catch(error => {
         console.error(error);
@@ -37,7 +49,7 @@ function NotificationTab() {
     tabIndex="-1"
   >
     <Link
-      to='/myprofile'
+      to={`/user/${user}`}
       className="block px-4 py-2 text-sm text-gray-700"
       role="menuitem"
       // @ts-ignore
@@ -47,7 +59,7 @@ function NotificationTab() {
       Your Profile
     </Link>
     <Link
-      to=''
+      to={`/editprofile/${user}`}
       className="block px-4 py-2 text-sm text-gray-700"
       role="menuitem"
       // @ts-ignore
@@ -55,16 +67,6 @@ function NotificationTab() {
       id="user-menu-item-1"
     >
       Settings
-    </Link>
-    <Link
-      to=''
-      className="block px-4 py-2 text-sm text-gray-700"
-      role="menuitem"
-      // @ts-ignore
-      tabIndex="-1"
-      id="user-menu-item-1"
-    >
-      messeges
     </Link>
     <Link
       className="block px-4 py-2 text-sm text-gray-700"

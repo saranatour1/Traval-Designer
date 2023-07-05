@@ -38,13 +38,7 @@ function PostForm({ onClickProp, users, onSubmitProp, item, editMode =false }) {
 
   }, [editMode, item]);
 
-  // console.log('this is the title in the post form' , title);
-  // console.log('this is the content in the post form' , content);
-  // console.log('these are the labels' , labels);
-  // console.log('toDoList' , toDoList );
-  // console.log('collab' , collab);
 
-  // console.log("on Submit");
 
   const handleSubmit = () => {
     // post fetch request
@@ -60,8 +54,7 @@ function PostForm({ onClickProp, users, onSubmitProp, item, editMode =false }) {
           return response.json();
         })
         .then((data) => {
-          console.log(data);
-          // console.log(data, 'in the post form');
+
           onSubmitProp(data);
           onClickProp();
        
@@ -81,8 +74,7 @@ function PostForm({ onClickProp, users, onSubmitProp, item, editMode =false }) {
           return response.json();
         })
         .then((data) => {
-          console.log(data);
-          // console.log(data, 'in the post form');
+
           onSubmitProp(data);
           onClickProp();
         })

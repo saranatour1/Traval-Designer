@@ -16,6 +16,8 @@ function RegestrationPage() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
+  const [errors, setErrors] =useState([]);
+
   const navigate = useNavigate();
 
   // Here, Using Fetch Instead of axios, it serves the same thing
@@ -34,6 +36,14 @@ function RegestrationPage() {
 
       if(data.errors){
         console.log(data.errors);
+
+        addError(data.errors.confirmPassword.message);
+        addError(data.errors.firstName.message);
+        addError(data.errors.lastName.message);
+        addError(data.errors.email.message);
+        addError(data.errors.password.message);
+
+
       }else{
         const token = data.token;
         if (token) {
@@ -43,20 +53,40 @@ function RegestrationPage() {
         navigate('/signin');
       }
 
-      console.log(data); 
+      // console.log(data); 
     })
     .catch(error => {
-      // Stringfying the Error to show Validations from The backend, and There are a few added front End Validations
-      console.error(error);
+
+      console.log(error);
     });
 };
+console.log(errors , 'hie')
+
+function removeErrorAfterDelay(index, delay, setError) {
+  setTimeout(() => {
+    setError((prevErrors) => prevErrors.filter((_, i) => i !== index));
+  }, delay);
+}
+
+function addError(errorMessage) {
+  const newErrors = [...errors, errorMessage];
+  setErrors(newErrors);
+
+  const index = newErrors.length - 1;
+  removeErrorAfterDelay(index, 6000, setErrors);
+}
+
+
 
   return (
     <div>
       <Card>
       <TopHeading pageName={'Register'} />
       <div className="m-7">
-        <form >
+        <form onSubmit={e=>e.preventDefault()} >
+        {errors.map((item, idx) => (
+          <p key={idx} className="text-red-500 mt-2">{item}</p>
+        ))}
           <div className='flex '>
             <InputItem onChangeProp={(element) => setFirstName(element)} type='text' elId='firstName' labelText='First Name' placeholderText='John' />
             <InputItem onChangeProp={(element) => setLastName(element)} type='text' elId='lastName' labelText='Last Name' placeholderText='Doe' />

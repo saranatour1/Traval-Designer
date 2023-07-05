@@ -41,12 +41,12 @@ function SinglePostDetails({ users }) {
   }, [postId]);
 
   const deletePost = (item) => {
-    console.log(item);
+    // console.log(item);
     navigate('/dashboard');
   };
 
   const editModee = (item) => {
-    console.log(item);
+    // console.log(item);
     setEditMode(true);
     // setSelectedPost(item);
   };
@@ -104,7 +104,7 @@ function SinglePostDetails({ users }) {
           <p>Loading post...</p>
         )}
         {showPopUp && (
-          <PostForm onClickProp={() => {setShowPopUp(!showPopUp); if (!showPopUp) { setEditMode(false);} }}onSubmitProp={handleFormSubmit}users={users} item={post} editMode={editMode} />
+          <PostForm onClickProp={() => {setShowPopUp(!showPopUp); if (!showPopUp) { setEditMode(false);} }}onSubmitProp={handleFormSubmit} users={users} item={post} editMode={editMode} />
         )}
       </div>
     </>

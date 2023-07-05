@@ -42,7 +42,7 @@ function Post({ item ,onDeleteProp ,showPopUp , onEdit }) {
           setLikers([...likers, user]);
         }
 
-        console.log(data);
+        // console.log(data);
       })
       .catch((error) => {
         console.error(error);
@@ -58,14 +58,12 @@ function Post({ item ,onDeleteProp ,showPopUp , onEdit }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
+        // console.log(data)
         onDeleteProp(item._id)
       })
       .catch((error) => {
         console.error(error);
       });
-
-
   };
 
   // console.log(likes)
