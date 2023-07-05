@@ -72,6 +72,12 @@ function SinglePostDetails({ users }) {
   };
 
 
+  const deleteComment =(comment)=>{
+    setPost(comment);
+
+  }
+
+
   return (
     <>
       <Nav />
@@ -87,7 +93,7 @@ function SinglePostDetails({ users }) {
             />
             <CommentForm author={loggedInUser} postId ={post._id} updateComment={(post) => setPost(post)} />
             
-            {post.comments && <CommentDisplay comments={post.comments} />}
+            {post.comments && <CommentDisplay postId={post._id} comments={post.comments} deleteComment={(item)=>{deleteComment(item)}}/>}
 
           </div>
         ) : (
