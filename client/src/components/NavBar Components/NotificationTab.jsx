@@ -10,7 +10,7 @@ function NotificationTab() {
 
   useEffect(() => {
     const userId = localStorage.getItem("userId");
-    // console.log(userId);
+
     setUser(userId);
  
   }, []);
@@ -21,7 +21,7 @@ function NotificationTab() {
       method: 'GET',
     })
       .then(response => {
-        console.log(response); 
+
         localStorage.removeItem('token');
         localStorage.removeItem('userId');
         return response.json();
@@ -29,7 +29,7 @@ function NotificationTab() {
       .then(data => {
 
         navigate('/');
-        console.log(data);
+
       })
       .catch(error => {
         console.error(error);

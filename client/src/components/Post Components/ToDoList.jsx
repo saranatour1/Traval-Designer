@@ -5,7 +5,7 @@ import { useState } from 'react';
 function ToDoList({onAddProp }) {
   const [toDoList, setToDoList] = useState([]);
   const[toDoText, setDoText] = useState('');
-// console.log(toDoList);
+
 
 const handleTodoCheckbox = (index) => {
   const updatedList = [...toDoList];

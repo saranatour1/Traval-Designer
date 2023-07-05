@@ -45,7 +45,7 @@ function SearchBar({ onSubmitResult, getErrors }) {
         } else if (response.status === 403) {
           addError("Unauthorized");
         }
-        console.log(response.status);
+        // console.log(response.status);
         return response.json();
       })
       .then((data) => {
@@ -54,7 +54,7 @@ function SearchBar({ onSubmitResult, getErrors }) {
         }
 
         onSubmitResult(data.json);
-        console.log(data);
+        // console.log(data);
       })
       .catch((error) => {
         console.error(error);

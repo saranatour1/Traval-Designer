@@ -43,7 +43,7 @@ function RegestrationPage() {
         navigate('/dashboard');
       }
 
-      console.log(data); 
+      // console.log(data); 
     })
     .catch(error => {
       // Stringfying the Error to show Validations from The backend, and There are a few added front End Validations

@@ -24,9 +24,9 @@ function MainPage() {
     });
   }, []);
   
-  console.log(error);
+  // console.log(error);
   useEffect(() => {
-    console.log('i am here', coordinates);
+    // console.log('i am here', coordinates);
     localStorage.setItem('coord', JSON.stringify(coordinates));
   }, [coordinates]);
 
@@ -60,7 +60,7 @@ function MainPage() {
   
   // This does not work for the city of Tulkarem! 
   const getNearbyValue = (lat, long) => {
-    console.log(lat,long)
+    // console.log(lat,long)
     fetch(`http://localhost:8000/api/nearby/${lat},${long}/findnearby`, {
       method: 'GET',
       headers: {
@@ -71,7 +71,7 @@ function MainPage() {
       .then(data => {
         localStorage.setItem('nearby' , JSON.stringify(data.json));
         setNearby(data.json);
-        console.log(data);
+        // console.log(data);
       })
       .catch(error => {
         console.log(error);
@@ -89,7 +89,7 @@ function MainPage() {
       .then(data => {
         // localStorage.setItem('images' , JSON.stringify(data.json));
         getLargeImageUrls(data.data); 
-        console.log(data);
+        // console.log(data);
       })
       .catch(error => {
         console.error(error);
@@ -117,7 +117,7 @@ function MainPage() {
 
 
 
-  console.log(results)
+  // console.log(results)
   return (
     <div >
       {error ? error.map((item, idx) => <Toast key={idx} error={item} />) : ''}

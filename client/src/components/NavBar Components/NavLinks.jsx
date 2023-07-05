@@ -3,7 +3,7 @@ import { NavLink ,useLocation } from 'react-router-dom';
 // eslint-disable-next-line react/prop-types
 function NavLinks({ activeStyle , inActiveStyle }) {
 const location =useLocation();
-  console.log(location.pathname);
+
   return (
     // @ts-ignore
     <>

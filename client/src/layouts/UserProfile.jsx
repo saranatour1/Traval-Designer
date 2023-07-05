@@ -52,7 +52,7 @@ function UserProfile({users}) {
       })
       .then(data => {
 
-        console.log(data);
+        // console.log(data);
         setPosts(data);
       })
       .catch(error => {
@@ -77,7 +77,7 @@ function UserProfile({users}) {
       })
       .then(data => {
 
-        console.log(data);
+        // console.log(data);
         setCollabPosts(data);
       })
       .catch(error => {
@@ -97,7 +97,7 @@ function UserProfile({users}) {
         return response.json();
       })
       .then(data => {
-        console.log(data);
+        // console.log(data);
         setOtherUser(data);
       })
       .catch(error => {
