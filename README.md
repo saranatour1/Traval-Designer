@@ -205,15 +205,12 @@ Finally, we learned a lot during this project in a limited period of time. We we
 
 Thank you for taking the time to read about our project!
 
-- Creators of Moods 
+- Creators of Travel-Designer
 
   ![image](https://user-images.githubusercontent.com/77834808/230228434-15fbe2c1-dc37-4518-9f00-9affb391acb0.png)
 
 
 
-
-
-# Traval-Designer
 ## Styled Ccomponents Source:
 - The Sign Up and Sign In Form [Link](https://tailwindcomponents.com/component/simple-sign-in) 
 - Simple Toast : [Link](https://tailwindcomponents.com/component/simple-toast)
@@ -239,3 +236,5 @@ Thank you for taking the time to read about our project!
 ### Next steps
 - [] Remove any unused code.
 - [] Add Hooks instead of repeated code
+### disclaimer :
+![Work in Progress](https://media2.giphy.com/media/Lr4HRF6DEEJo90SQXF/giphy.gif?cid=6c09b952ne4e3rkkvhqoq38gbl2auw7netoakq1zuvr6veez&ep=v1_stickers_related&rid=giphy.gif&ct=s)
