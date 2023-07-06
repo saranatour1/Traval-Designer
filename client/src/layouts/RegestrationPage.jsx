@@ -79,14 +79,14 @@ function RegestrationPage() {
         navigate('/signin');
       }
 
-      // console.log(data); 
+
     })
     .catch(error => {
 
       console.log(error);
     });
 };
-console.log(errors , 'hie')
+
 
 function removeErrorAfterDelay(index, delay, setError) {
   setTimeout(() => {

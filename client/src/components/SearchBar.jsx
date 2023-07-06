@@ -77,7 +77,7 @@ function SearchBar({ onSubmitResult, getErrors }) {
     setErrors(newErrors);
 
     const index = newErrors.length - 1;
-    removeErrorAfterDelay(index, 6000, setErrors);
+    removeErrorAfterDelay(index, 3000, setErrors);
   }
 
   return (
