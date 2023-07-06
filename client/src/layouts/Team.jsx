@@ -61,7 +61,7 @@ function Team() {
         Checkout our{" "}
         <span className="text-blue-600 dark:text-blue-500">GitHub Repo</span>{" "}
       </h1>
-      <div className="flex justify-center">
+      <div className="flex justify-center my-10">
         <a
           href="https://github.com/saranatour1/Traval-Designer"
           className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-gray-900 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900"

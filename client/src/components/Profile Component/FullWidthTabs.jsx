@@ -104,7 +104,7 @@ export default function FullWidthTabs({ items, users ,collab }) {
   };
 
   return (
-    <Box sx={{ bgcolor: 'background.paper', width: 1000 }} className='mx-auto mt-5 w-full'>
+    <Box sx={{ bgcolor: 'background.paper', width: 1000 }} className='bg-gray-100 mx-auto mt-5 w-full sm:max-w-xl md:max-w-3xl lg:max-w-4xl xl:max-w-5xl'>
       <AppBar position="static">
         <Tabs
           value={value}
@@ -113,6 +113,7 @@ export default function FullWidthTabs({ items, users ,collab }) {
           textColor="inherit"
           variant="fullWidth"
           aria-label="full width tabs example"
+          className='sm:overflow-x-auto'
         >
           <Tab label="Posts" {...a11yProps(0)} />
           <Tab label="Collaborator Posts" {...a11yProps(1)} />
@@ -124,7 +125,7 @@ export default function FullWidthTabs({ items, users ,collab }) {
         index={value}
         onChangeIndex={handleChangeIndex}
       >
-        <TabPanel value={value} index={0} dir={theme.direction}>
+        <TabPanel value={value} index={0} dir={theme.direction} className=' '>
           <div className='mx-auto'>
             {posts && (
               <DisplayPosts

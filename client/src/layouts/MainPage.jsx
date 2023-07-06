@@ -47,18 +47,22 @@ function MainPage() {
         const parsedVal = JSON.parse(oldVal);
 
         if (
-          parsedVal &&
-          parsedVal.lat === coordinates.lat &&
-          parsedVal.long === coordinates.long
+          localStorage.getItem("nearby") ===undefined && localStorage.getItem("coord")
         ) {
           // Do nothing
           // setNearby(parsedVal)
-          // getNearbyValue(coordinates.lat, coordinates.long);
-          setNearby(JSON.parse(localStorage.getItem("nearby")));
-        } else {
-          // Do the API call once
-          await getNearbyValue(coordinates.lat, coordinates.long);
+          getNearbyValue(coordinates.lat, coordinates.long);
           localStorage.setItem("coord", JSON.stringify(coordinates));
+          
+        } else if(localStorage.getItem("coord")) {
+          getNearbyValue(coordinates.lat, coordinates.long);
+          localStorage.setItem("coord", JSON.stringify(coordinates));
+        }else{
+          // Do the API call once
+          setNearby(JSON.parse(localStorage.getItem("nearby")));
+
+          // await getNearbyValue(coordinates.lat, coordinates.long);
+          // localStorage.setItem("coord", JSON.stringify(coordinates));
         }
       } catch (error) {
         // Handle parsing error

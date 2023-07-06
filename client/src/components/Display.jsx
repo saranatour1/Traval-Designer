@@ -22,7 +22,7 @@ function Display({ places }) {
 
   if (!places) {
     // Display a loading state or return null
-    return <p>Loading...</p>;
+    return <p className="text-center">Loading...</p>;
   }
 
   return (

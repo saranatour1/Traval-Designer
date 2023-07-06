@@ -28,14 +28,14 @@ const handleRemoveTodo = (index) => {
           <div className="mb-4">
               <h1 className="text-grey-darkest"> add Todo List</h1>
               <div className="flex mt-4">
-                <input className="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker" placeholder="Add Todo" onChange={(e)=>setDoText(e.target.value)} value={toDoText}/>
+                <input className="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker" placeholder="Add Todo" onChange={(e)=>setDoText(e.target.value)} value={toDoText}  onKeyDown={(e)=>{if(e.key === 'Enter'){e.preventDefault()}}}/>
                 <button className="flex-no-shrink p-2 border-2 rounded text-teal border-teal hover:text-white hover:bg-teal" onClick={()=> {setToDoList([...toDoList , {content: toDoText , checked:false}]); onAddProp(toDoList); setDoText('') }}>Add</button>
             </div>
         </div>
         <div>
       {toDoList.map((item, idx) => (
         <div className="flex mb-4 items-center" key={idx}>
-          <input type="checkbox" checked={item.checked} onChange={() => handleTodoCheckbox(idx)} />
+          <input type="checkbox" checked={item.checked} onChange={() => handleTodoCheckbox(idx)}  onKeyDown={(e)=>{if(e.key === 'Enter'){e.preventDefault()}}} />
           <p className={item.checked ? "w-full text-grey-darkest line-through" : "w-full text-grey-darkest"}>{item.content}</p>
           <button className="flex-no-shrink p-2 ml-2 border-2 rounded text-red border-red hover:text-white hover:bg-red"  onClick={() => handleRemoveTodo(idx)}>Remove</button>
         </div>

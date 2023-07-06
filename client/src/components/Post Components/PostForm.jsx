@@ -134,6 +134,7 @@ function PostForm({ onClickProp, users, onSubmitProp, item, editMode =false }) {
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
+            onKeyDown={(e)=>{if(e.key === 'Enter'){e.preventDefault()}}}
           />
           <textarea
             className="description bg-gray-100 sec p-3 h-60 border border-gray-300 outline-none"
@@ -141,6 +142,7 @@ function PostForm({ onClickProp, users, onSubmitProp, item, editMode =false }) {
             placeholder="Describe everything about this post here"
             value={content}
             onChange={(e) => setContent(e.target.value)}
+            onKeyDown={(e)=>{if(e.key === 'Enter'){e.preventDefault()}}}
           ></textarea>
         </>
       ),
@@ -158,6 +160,7 @@ function PostForm({ onClickProp, users, onSubmitProp, item, editMode =false }) {
               className="w-1/2 px-3 py-2 border border-gray-300 rounded-lg bg-slate-200 text-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               onChange={(e) => setLabel(e.target.value)}
               value={label}
+              onKeyDown={(e)=>{if(e.key === 'Enter'){e.preventDefault()}}}
             />
             <button
               onClick={() => {
