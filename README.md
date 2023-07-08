@@ -207,7 +207,7 @@ Thank you for taking the time to read about our project!
 
 - Creators of Travel-Designer
 
-  ![image](https://user-images.githubusercontent.com/77834808/230228434-15fbe2c1-dc37-4518-9f00-9affb391acb0.png)
+<img src="client/src/assets/logo.svg" alt="Project Logo" width="256px" height="256px">
 
 
 
