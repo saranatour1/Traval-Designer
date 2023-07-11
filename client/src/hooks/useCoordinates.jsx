@@ -18,6 +18,8 @@ function useCoordinates() {
     });
   }, []);
 
+  
+
   return coordinates;
 }
 

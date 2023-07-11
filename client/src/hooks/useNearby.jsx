@@ -12,10 +12,11 @@ function useNearby() {
     const fetchData = async () => {
       const oldVal = await localStorage.getItem("coord");
       const parsedVal = await JSON.parse(oldVal);
-      const { lat, long } = parsedVal;
-      getNearbyValue(lat, long);
-
-      localStorage.setItem("coord", JSON.stringify(parsedVal));
+      if(Object.entries(parsedVal).length > 0){
+        const { lat, long } = parsedVal;
+        getNearbyValue(lat, long);
+        localStorage.setItem("coord", JSON.stringify(parsedVal));
+      }
     };
 
     fetchData();
