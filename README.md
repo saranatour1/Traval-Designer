@@ -147,11 +147,10 @@ So, let's talk about the functionality by telling the user story:
 Once the user visits the webpage, they are met with a search bar. The webpage will ask them to accept location access. Then, based on the coordinates, the 10 places near that coordinate will appear on the search page.
 
 If the user wants to search for a place of their choice, the data gets sorted to include both the new places and the old nearby places.
+![First Time Users](https://github.com/saranatour1/Traval-Designer/assets/77834808/22b1462b-6388-47fd-a7d8-ec8fee4595b4)
 
-![First Time Users](https://github.com/saranatour1/Traval-Designer/assets/77834808/3506378c-689f-4dfb-aa8b-911bae0c3d51)
-
-If they want to search a place, Let's say Jerusalem: 
-![Search Result for the City of Jerusalem](https://github.com/saranatour1/Traval-Designer/assets/77834808/6bee2a73-6d44-4383-8025-5d6a6052a624)
+If they want to search a place, Let's say Nablus: 
+![Search Result for the City of Nablus](https://github.com/saranatour1/Traval-Designer/assets/77834808/c52e5a4f-c0e8-4cd7-ad96-c399eb586bfb)
 
 Then If you navigate to the Sign in or sign up pages this is the scenario :
 
