@@ -7,31 +7,37 @@ import InputItem from "../components/Form Components/InputItem";
 import FormButton from '../components/Form Components/FormButton.jsx'
 import React from 'react';
 import { useEffect } from 'react';
+import useErrors2 from '../hooks/useErrors2';
 
 
 function SignInPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const [errors, setErrors] =useState([]);
+  const getErrors =(errors)=>{
+    console.log('wepee we have an error')
+  }
+
+  const {errors , addError} = useErrors2({getErrors})
+
 
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   getErrors(errors);
-  // }, [errors]);
+
 
   useEffect(() => {
     frontSideErrors();
   }, []);
 
+
+
   const frontSideErrors = () => {
     if (!email || email.trim() === "") {
-      setErrors(["Please enter a valid email"]);
+      addError("Please enter a valid email");
     } else if (password.length < 6) {
-      setErrors(["Password should be at least 6 characters long"]);
+      addError("Password should be at least 6 characters long");
     } else {
-      setErrors([]);
+      addError('');
     }
   };
   
@@ -43,13 +49,11 @@ function SignInPage() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ email, password }),
-      credentials: 'include', // Include cookies in the request
+      credentials: 'include', 
     })
       .then(response => {console.log(response) ; return response.json()})
       .then(data => {
-        // console.log(data)
-
-        const token = data.token;
+          const token = data.token;
         if (token) {
           localStorage.setItem('token', token);
           localStorage.setItem('userId', data.id);
@@ -59,26 +63,11 @@ function SignInPage() {
         }
       })
       .catch(error => {
-        addError(error.message)
+        addError(error.message);
         console.error(error);
       });
   };
-
-
-  function removeErrorAfterDelay(index, delay, setError) {
-    setTimeout(() => {
-      setError((prevErrors) => prevErrors.filter((_, i) => i !== index));
-    }, delay);
-  }
-
-  function addError(errorMessage) {
-    const newErrors = [...errors, errorMessage];
-    setErrors(newErrors);
-
-    const index = newErrors.length - 1;
-    removeErrorAfterDelay(index, 6000, setErrors);
-  }
-  
+ 
   
   return (
     <Card>
@@ -98,4 +87,4 @@ function SignInPage() {
   )
 }
 
-export default SignInPage
+export default SignInPage;
