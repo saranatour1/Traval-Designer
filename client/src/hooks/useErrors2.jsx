@@ -2,6 +2,11 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
 
+/**
+ * The `useErrors2` function is a custom React hook that manages a list of errors and provides a way to
+ * add errors with a delay.
+ * @returns The function `useErrors2` returns an object with two properties: `errors` and `addError`.
+ */
 function useErrors2({getErrors}) {
   const [errors, setErrors] = useState([]);
 
