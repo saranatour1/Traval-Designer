@@ -20,10 +20,10 @@ function Display({ places }) {
  * The function `getPicsUpdate` is an asynchronous function that fetches data from a specified API
  * endpoint and updates the state with the fetched data.
  */
-  const getPicsUpdate = async (locationId, idx) => {
+  const getPicsUpdate = async (locationId) => {
     try {
-      console.log(locationId);
-      console.log('I was here');
+      // console.log(locationId);
+      // console.log('I was here');
       
       const response = await fetch(`http://localhost:8000/api/places/${locationId}/findlocationmage`, {
         method: "GET",
@@ -33,8 +33,8 @@ function Display({ places }) {
       });
   
       const data = await response.json();
-      console.log(Object.keys(data.data.data));
-      setFakeImages([...fakeImages, { idx: idx, caption: data?.data.data['0']?.caption, url: data?.data.data['0']?.images?.large?.url }]);
+      // console.log(Object.keys(data.data.data));
+      setFakeImages([...fakeImages, { idx: locationId, caption: data?.data.data['0']?.caption, url: data?.data.data['0']?.images?.large?.url }]);
       console.log(fakeImages);
     } catch (error) {
       console.error(error);
@@ -50,16 +50,16 @@ function Display({ places }) {
 
   return (
 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 container mx-auto my-10">
-  {places.map((item, idx) => (
-    <Card className="pr-4" key={idx}>
+  {places.map((item) => (
+    <Card className="pr-4" key={item.location_id}>
       <CardHeader title={item.name} subheader={item.bearing} />
       <CardMedia
         component="img"
         height="194"
-        onMouseEnter={async () => await getPicsUpdate(item.location_id, idx)}
-        image={fakeImages[idx] ? fakeImages[idx].url : "https://99designs-blog.imgix.net/blog/wp-content/uploads/2018/12/Gradient_builder_2.jpg?auto=format&q=60&w=1815&h=1200&fit=crop&crop=faces"}
+        onMouseEnter={async () => await getPicsUpdate(item.location_id, item.location_id)}
+        image={fakeImages.some((img) => img.idx === item.location_id) ? fakeImages.find((img) => img.idx === item.location_id).url : "https://99designs-blog.imgix.net/blog/wp-content/uploads/2018/12/Gradient_builder_2.jpg?auto=format&q=60&w=1815&h=1200&fit=crop&crop=faces"}
         className="backdrop-blur-2xl object-none object-center ml-2"
-        alt={fakeImages[idx] ? fakeImages[idx].caption : 'loading..'}
+        alt={fakeImages.some((img) => img.idx === item.location_id) ? fakeImages.find((img) => img.idx === item.location_id).caption : 'loading..'}
       />
       <CardContent>
         <div className="flex items-center">
@@ -68,7 +68,7 @@ function Display({ places }) {
             {item.address_obj &&
               Object.entries(item.address_obj).map(([key, value]) => (
                 <span key={key}>
-                  {value.length > 10 && expandedIndex !== idx
+                  {value.length > 10 && expandedIndex !== item.location_id
                     ? `${value.substring(0, 10)}...`
                     : value},
                 </span>
@@ -83,9 +83,9 @@ function Display({ places }) {
           ) && (
             <button
               className="text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              onClick={() => toggleAddress(idx)}
+              onClick={() => toggleAddress(item.location_id)}
             >
-              {expandedIndex === idx ? "Show Less" : "Show More"}
+              {expandedIndex === item.location_id ? "Show Less" : "Show More"}
             </button>
           )}
         </div>
@@ -93,6 +93,7 @@ function Display({ places }) {
     </Card>
   ))}
 </div>
+
 
 
 
