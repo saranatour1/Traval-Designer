@@ -5,14 +5,12 @@ import InputSearch from "./Search Bar Components/InputSearch";
 import SeacrhIcon from "./Search Bar Components/SeacrhIcon";
 import SearchButton from "./Search Bar Components/SearchButton";
 import SearchLabel from "./Search Bar Components/SearchLabel";
+import useErrors2 from "../hooks/useErrors2";
 
 function SearchBar({ onSubmitResult, getErrors }) {
   const [search, setSearch] = useState("");
-  const [errors, setErrors] = useState([]);
+  const {errors, addError} = useErrors2({getErrors})
 
-  useEffect(() => {
-    getErrors(errors);
-  }, [errors]);
 
   useEffect(() => {
     frontSideErrors();
@@ -24,7 +22,7 @@ function SearchBar({ onSubmitResult, getErrors }) {
     } else if (search.length < 3) {
       addError("Try adding more than 3 characters into the search");
     }else{
-      setErrors([]);
+      addError('');
     }
     
   };
@@ -63,19 +61,7 @@ function SearchBar({ onSubmitResult, getErrors }) {
       });
   };
 
-  function removeErrorAfterDelay(index, delay, setError) {
-    setTimeout(() => {
-      setError((prevErrors) => prevErrors.filter((_, i) => i !== index));
-    }, delay);
-  }
 
-  function addError(errorMessage) {
-    const newErrors = [...errors, errorMessage];
-    setErrors(newErrors);
-
-    const index = newErrors.length - 1;
-    removeErrorAfterDelay(index, 3000, setErrors);
-  }
 
   return (
     <div className="container flex justify-center h-full w-full mx-auto mt-12">

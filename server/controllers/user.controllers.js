@@ -2,13 +2,18 @@ const User = require("../models/users.model");
 require("dotenv").config();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+/**
+ * Look up how to do the keepalive session for 5 hours? 
+ */
 
 module.exports = {
+/* The `register` function is a controller function that handles the registration of a user. */
   register: (req, res) => {
-    console.log("Regestration just happend");
+
     if(req.body.email === undefined){
-     return res.status(400).json({ message: "Email is undefinde" });
+      return res.status(400).json({ message: "Email is undefined" });
     }
+
     User.create(req.body)
       .then((user) => {
         const userToken = jwt.sign(
@@ -30,6 +35,8 @@ module.exports = {
       .catch((err) => res.json(err));
   },
   
+/* The `getAll` function is a controller function that retrieves all users from the database and sends
+them as a JSON response. */
   getAll: async (req, res) => {
     try {
       const users = await User.find();
@@ -39,6 +46,8 @@ module.exports = {
     }
   },
 
+/* The `findUser` function is a controller function that retrieves a specific user from the database
+based on the provided `userId` parameter. */
 findUser: (req, res) => {
   const userId = req.params.userId;
   User.findOne({ _id: userId })
@@ -55,10 +64,9 @@ findUser: (req, res) => {
     });
 },
 
-
-
+/* The `login` function is a controller function that handles the login functionality. */
   login: async (req, res) => {
-    console.log("Login just happend");
+
     const user = await User.findOne({ email: req.body.email });
 
     if (user === null) {
@@ -95,11 +103,10 @@ findUser: (req, res) => {
     return res.status(200).json({ message: "Login successful" , token: userToken ,id: user._id });
   },
 
+/* The `logout` function is a controller function that handles the logout functionality. */
   logout: (req, res) => {
     res.clearCookie("usertoken");
     res.json({ message: "Logout successful" });
   },
   
 };
-// const val= new Date;
-// console.log(val.toLocaleString())

@@ -7,6 +7,7 @@ import InputItem from "../components/Form Components/InputItem";
 import FormButton from '../components/Form Components/FormButton.jsx'
 // eslint-disable-next-line no-unused-vars
 import React from 'react';
+import useErrors2 from '../hooks/useErrors2';
 
 
 function RegestrationPage() {
@@ -16,38 +17,21 @@ function RegestrationPage() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const [errors, setErrors] =useState([]);
+  
+  const getErrors =(errors)=>{
+    console.log('we have errors');
+  }
+  
+  const {errors , addError} = useErrors2({getErrors});
 
   const navigate = useNavigate();
 
-  // Here, Using Fetch Instead of axios, it serves the same thing
-  // adding less Libraries to do simple tasks is the reason to use fetch over axsios
-  
+
+/**
+ * The `handleRegister` function sends a POST request to a registration API endpoint with user data,
+ * handles the response, and performs actions based on the response.
+ */
   const handleRegister = () => {
-
-    // Perform validation
-
-    if (firstName.trim() === '') {
-      addError('First name is required');
-    }
-  
-    if (lastName.trim() === '') {
-      addError('Last name is required');
-    }
-  
-    if (email.trim() === '') {
-      addError('Email address is required');
-    }
-  
-    if (password.trim() === '') {
-      addError('Password is required');
-    }
-  
-    if (password !== confirmPassword) {
-      addError('Passwords do not match');
-    }
-
-
   fetch('http://localhost:8000/api/register', {
     method: 'POST',
     headers: {
@@ -58,51 +42,23 @@ function RegestrationPage() {
     .then(response => response.json())
     .then(data => {
       // If successfull Go to the main page
-
-      if(data.errors){
-        console.log(data.errors);
-
-        addError(data.errors.confirmPassword.message);
-        addError(data.errors.firstName.message);
-        addError(data.errors.lastName.message);
-        addError(data.errors.email.message);
-        addError(data.errors.password.message);
-
-
+      if(data.errors){        
+        Object.entries(data.errors).forEach(([key, value]) => {
+          addError(value?.message);
+        });
       }else{
         const token = data.token;
         if (token) {
           localStorage.setItem('token', token);
           localStorage.setItem('userId', data.id);
         }
-
         navigate('/signin');
       }
-
-
     })
     .catch(error => {
-
       console.log(error);
     });
 };
-
-
-function removeErrorAfterDelay(index, delay, setError) {
-  setTimeout(() => {
-    setError((prevErrors) => prevErrors.filter((_, i) => i !== index));
-  }, delay);
-}
-
-function addError(errorMessage) {
-  const newErrors = [...errors, errorMessage];
-  setErrors(newErrors);
-
-  const index = newErrors.length - 1;
-  removeErrorAfterDelay(index, 6000, setErrors);
-}
-
-
 
   return (
     <div>
