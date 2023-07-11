@@ -30,7 +30,6 @@ function SearchBar({ onSubmitResult, getErrors }) {
   };
 
   const handleSearch = () => {
-
     fetch(`http://localhost:8000/api/places/${search}/findnearbytxt`, {
       method: "GET",
       headers: {
@@ -55,8 +54,6 @@ function SearchBar({ onSubmitResult, getErrors }) {
         if(!data.json){
           addError("No Valid data from the API");
         }
-
-
         onSubmitResult(data.json);
         // console.log(data);
       })
