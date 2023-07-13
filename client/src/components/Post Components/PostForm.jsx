@@ -6,6 +6,7 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import Collab from "./Collab";
 import ToDoList from "./ToDoList";
 import VerticalLinearStepper from "./VerticalLinearStepper";
+import useErrors2 from "../../hooks/useErrors2";
 
 function PostForm({ onClickProp, users, onSubmitProp, item, editMode =false }) {
   const [title, setTitle] = useState("");
@@ -15,7 +16,14 @@ function PostForm({ onClickProp, users, onSubmitProp, item, editMode =false }) {
   const [toDoList, setToDoList] = useState([]);
   const [collab, setCollab] = useState([]);
   const [loggedInUser, setLoggedInUser] = useState("");
-  const [errors, setErrors] =useState([]);
+
+  const getErrors= () =>{
+    console.log('wepee error');
+  }
+  
+  const {errors , addError} = useErrors2({getErrors});
+
+  // const [errors, setErrors] =useState([]);
 
   // const navigate = useNavigate();
 
@@ -39,24 +47,9 @@ function PostForm({ onClickProp, users, onSubmitProp, item, editMode =false }) {
 
   }, [editMode, item]);
 
-
-  function removeErrorAfterDelay(index, delay, setError) {
-    setTimeout(() => {
-      setError((prevErrors) => prevErrors.filter((_, i) => i !== index));
-    }, delay);
-  }
-
-  function addError(errorMessage) {
-    const newErrors = [...errors, errorMessage];
-    setErrors(newErrors);
-
-    const index = newErrors.length - 1;
-    removeErrorAfterDelay(index, 6000, setErrors);
-  }
-
-
-  const handleSubmit = () => {
-
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
     if (title.trim() === '') {
       addError('Title is required');
     }
@@ -76,9 +69,6 @@ function PostForm({ onClickProp, users, onSubmitProp, item, editMode =false }) {
     if (collab.length === 0) {
       addError('At least one collaborator is required');
     }
-
-
-
     // post fetch request
     if (editMode && item) {
       fetch(`http://localhost:8000/api/trips/${item._id}`, {
@@ -121,6 +111,15 @@ function PostForm({ onClickProp, users, onSubmitProp, item, editMode =false }) {
         });
     }
   };
+
+  const removeLabel = (label) => {
+    const indexToDelete = labels.indexOf(label);
+    if (indexToDelete !== -1) {
+      const updatedLabels = [...labels]; 
+      updatedLabels.splice(indexToDelete, 1);
+      setLabels(updatedLabels); 
+    }
+  }
 
   const steps = [
     {
@@ -204,19 +203,12 @@ function PostForm({ onClickProp, users, onSubmitProp, item, editMode =false }) {
     },
   ];
 
-  const removeLabel = (label) => {
-  const indexToDelete = labels.indexOf(label);
-  if (indexToDelete !== -1) {
-    const updatedLabels = [...labels]; 
-    updatedLabels.splice(indexToDelete, 1);
-    setLabels(updatedLabels); 
-  }
-}
+
 
   return (
     <>
       <form
-        onSubmit={(e) => e.preventDefault()}
+        onSubmit={(e) => handleSubmit(e) }
         className="transition  duration-75 ease-in-out overflow-y-auto"
       >
         <div className="fixed inset-0 flex items-center justify-center bg-opacity-75 bg-gray-900 overflow-y-auto h-100">
