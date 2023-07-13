@@ -18,6 +18,7 @@ function DashBoard({users}) {
 
   return (
     <>
+
       <Nav />
       <FakeComponent onClickProp={() => { setShowPopUp(!showPopUp); setEditMode(false); setSelectedPost({}); }} />
       {posts && <DisplayPosts items={posts} onDeleteProp={(item) => deleteItem(item)} showPopUp={() => setShowPopUp(!showPopUp)} onEdit={(item) => editModeOn(item)} />}

@@ -22,9 +22,6 @@ function Display({ places }) {
  */
   const getPicsUpdate = async (locationId) => {
     try {
-      // console.log(locationId);
-      // console.log('I was here');
-      
       const response = await fetch(`http://localhost:8000/api/places/${locationId}/findlocationmage`, {
         method: "GET",
         headers: {
@@ -33,9 +30,7 @@ function Display({ places }) {
       });
   
       const data = await response.json();
-      // console.log(Object.keys(data.data.data));
-      setFakeImages([...fakeImages, { idx: locationId, caption: data?.data.data['0']?.caption, url: data?.data.data['0']?.images?.large?.url }]);
-      console.log(fakeImages);
+      setFakeImages([...fakeImages, { idx: locationId, caption: data?.data.data['0']?.caption, url: data?.data.data['0']?.images?.original?.url }]);
     } catch (error) {
       console.error(error);
     }
