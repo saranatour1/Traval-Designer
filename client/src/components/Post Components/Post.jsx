@@ -3,18 +3,51 @@ import useDateTime from "../../hooks/useDateTime";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import Embed from 'react-embed';
 
 // eslint-disable-next-line react/prop-types
 function Post({ item ,onDeleteProp ,showPopUp , onEdit }) {
   // use state for the number of comments and number of likes
 
+  const [content, setContent] = useState('');
+
   const {likes , comments , likers, isAuthor , addOrDelete} = usePost({item});
+
+  const [expanded , setExpanded] = useState(false);
 
   const {getTimeAgo} = useDateTime();
 
   const navigate = useNavigate();
 
   const [timeAgo , setTimeAgo]=useState("");
+
+  const location = useLocation();
+
+  useEffect(() => {
+    location.pathname.includes('post') ? setExpanded(true): setExpanded(false);
+  }, [location.pathname]);
+
+
+  useEffect(() => {
+    function extractLinks(content) {
+      const urlRegex = /(https?:\/\/[^\s]+)/g;
+      const links = content.match(urlRegex) || [];
+      const text = content.split(urlRegex);
+      console.log(text)
+      return { links, text };
+    }
+  
+    const { links, text } = extractLinks(item.content);
+
+    setContent(text);
+    // console.log(content)
+    
+  }, []);
+
+
+
+
 
 
   useEffect(() => {
@@ -42,12 +75,16 @@ function Post({ item ,onDeleteProp ,showPopUp , onEdit }) {
       });
   };
 
+  function isYoutubeLink(url) {
+    return /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/.test(url);
+  }
+
 
 
   return (
     <>
       {/* Make it into a component later */}
-      <div className="rounded-xl border p-5 shadow-md w-full sm:w-6/12 bg-white mx-auto mt-3">
+      <div className="rounded-xl border p-5 shadow-md w-full sm:w-11/12 bg-white mx-auto mt-3">
         <div className="flex flex-col sm:flex-row items-center justify-between border-b pb-3">
           <div className="flex items-center space-x-3">
             <div
@@ -80,7 +117,40 @@ function Post({ item ,onDeleteProp ,showPopUp , onEdit }) {
             <Link to={`/post/${item._id}`}>{item.title}</Link>{" "}
           </div>
           <div className="text-sm text-neutral-600 text-clip">
-            {item.content}
+            {expanded ? 
+              <>
+              {content.map((segment, index) => (
+                <React.Fragment key={index}>
+                  {segment.match(/(https?:\/\/[^\s]+)/g) ? (
+                    <>
+                    {isYoutubeLink(segment) ? <Embed url={segment+ '?showinfo=0&enablejsapi=1&origin=http://localhost:5173'} /> :
+                    <iframe src={segment} name="iframe_a" title="Iframe Example" width={400} height={400}></iframe>}
+                    </>
+                  ) : (
+                    <p key={index}>{segment}</p>
+                  )}
+                </React.Fragment>
+              ))}
+              {/* <p className="my-4">{item.content}</p> */}
+            </>
+
+
+
+             : <p className="my-4">{item.content.substring(0, 20)} 
+             ...  
+             <Link to={`/post/${item._id}`}>Show more</Link>{" "}</p>}
+            {expanded && item.toDoList.map((item, idx) => (
+                <div key={idx} className="flex items-center space-x-2">
+                  <input
+                  disabled={true}
+                    type="checkbox"
+                    defaultChecked={item.checked}
+                    className="form-checkbox h-4 w-4 text-indigo-600"
+                  />
+                  <p className="text-gray-800">{item.content}</p>
+                </div>
+              ))}
+
           </div>
         </div>
 

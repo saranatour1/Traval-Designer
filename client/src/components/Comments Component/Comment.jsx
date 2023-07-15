@@ -2,46 +2,54 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { MdDeleteOutline } from 'react-icons/md';
 import { AiOutlineEdit } from 'react-icons/ai';
-import axios from 'axios';
+import useLoggedUser from '../../hooks/useLoggedUser';
+import useDateTime from '../../hooks/useDateTime';
 
 function Comment({ comment, deleteComment, postId }) {
-  const [loggedInUser, setLoggedInUser] = useState('');
-  const [comments,setComment]=useState('');
+
+  const { loggedInUser } = useLoggedUser();
+
+  const [comments , setComment]=useState('');
   const navigate = useNavigate();
 
+  const {getTimeAgo} = useDateTime();
+  const [timeAgo , setTimeAgo]=useState("");
+
   useEffect(() => {
-    const userId = localStorage.getItem('userId');
-    setLoggedInUser(userId);
-  }, []);
+    const interval = setInterval(() => {
+      setTimeAgo(getTimeAgo(comment.updatedAt));
+    }, 1000);
+  
+    return () => clearInterval(interval);
+  }, [comment.updatedAt]);
 
 
-
-  // add the update comment
+  // To Do : Needs to be updated in the controllers and here too. 
   const editComment = () => {
-    
-    axios
-    .put(`http://localhost:8000/api/trips/comments/${comment._id}`)
-    .then((res) => {
-      console.log(res.data);
-      setComment(res.data);
-      navigate(`/post/${postId}`);
-
+    fetch(`http://localhost:8000/api/trips/comments/${comment._id}`, {
+      method: 'PUT'
     })
-    .catch((err) => console.log(err));
-};
-
-  // add the delete comment
-  const deleteComments = () => {
-    axios
-      .delete(`http://localhost:8000/api/trips/comments/${comment._id}`)
       .then((res) => {
-
-        deleteComment(res.data);
+        return res.json();
+      }).then((edComm) => {       
+        setComment(edComm);
+        navigate(`/post/${postId}`); })
+      .catch((err) => console.log(err));
+  };
+  
+  const deleteComments = () => {
+    fetch(`http://localhost:8000/api/trips/comments/${comment._id}`, {
+      method: 'DELETE'
+    })
+      .then((res) => { return res.json();}) 
+      .then((post) => {
+        deleteComment(post);
+        console.log(post)
         navigate(`/post/${postId}`);
       })
       .catch((err) => console.log(err));
   };
-
+  
   return (
     <div className="flex justify-center relative top-1/3 mt-2 w-full">
       <div className="relative grid grid-cols-1 gap-4 p-4 mb-8 border rounded-lg bg-white shadow-lg">
@@ -57,7 +65,7 @@ function Comment({ comment, deleteComment, postId }) {
               <Link to={`/user/${comment.commentBy._id}`} className="relative text-xl whitespace-nowrap truncate overflow-hidden">
                 {comment.commentBy.firstName} {comment.commentBy.lastName}
               </Link>
-              {loggedInUser === comment.commentBy._id ? (
+              {loggedInUser._id === comment.commentBy._id ? (
                 <>
                   <button className="text-gray-500 text-xl" onClick={deleteComments}>
                     <MdDeleteOutline />
@@ -68,7 +76,7 @@ function Comment({ comment, deleteComment, postId }) {
                 </>
               ) : null}
             </div>
-            <p className="text-gray-400 text-sm">{comment.updatedAt}</p>
+            <p className="text-gray-400 text-sm">{timeAgo}</p>
           </div>
         </div>
         <p className="-mt-4 text-gray-500">{comment.content}</p>

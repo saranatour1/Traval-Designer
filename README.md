@@ -209,6 +209,10 @@ Thank you for taking the time to read about our project!
 <img src="client/src/assets/logo.svg" alt="Project Logo" width="256px" height="256px">
 
 
+## a few issues (Very Late Section)
+- Youtube 'http' issue : [Link](https://stackoverflow.com/questions/27573017/failed-to-execute-postmessage-on-domwindow-https-www-youtube-com-http)
+
+- Maybe Don't use React Render because it's only for videos? : [Link](https://stackoverflow.com/questions/45677637/how-to-create-react-component-that-can-render-img-or-video-depending-on-api-data)
 
 ## Styled Ccomponents Source:
 - The Sign Up and Sign In Form [Link](https://tailwindcomponents.com/component/simple-sign-in) 

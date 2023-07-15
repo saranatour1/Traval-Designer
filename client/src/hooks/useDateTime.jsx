@@ -12,6 +12,7 @@ function useDateTime() {
     const months = Math.floor(days / 30);
     const years = Math.floor(months / 12);
 
+    // console.log(`time difference is : ${years} years and ${months} months and ${days} days and ${hours} hours and ${minutes} min and ${seconds} seconds`)
     if (years > 0) {
       return `${years} year ${years !== 1 ? "s" : ""} ago`;
     } else if (months > 0) {

@@ -2,24 +2,26 @@ import React from 'react'
 import { useState } from 'react';
 
 // eslint-disable-next-line react/prop-types
-function ToDoList({onAddProp }) {
-  const [toDoList, setToDoList] = useState([]);
+function ToDoList({onAddProp ,todo }) {
+  const [toDoList, setToDoList] = useState(todo ?? []);
   const[toDoText, setDoText] = useState('');
 
 
-const handleTodoCheckbox = (index) => {
-  const updatedList = [...toDoList];
-  updatedList[index].checked = !updatedList[index].checked;
-  setToDoList(updatedList);
-  onAddProp(updatedList); 
-};
-
-const handleRemoveTodo = (index) => {
-  const updatedList = [...toDoList];
-  updatedList.splice(index, 1);
-  setToDoList(updatedList);
-  onAddProp(updatedList); 
-};
+  const handleTodoCheckbox = (index) => {
+    const updatedList = [...toDoList];
+    updatedList[index].checked = !updatedList[index].checked;
+    setToDoList(updatedList);
+    onAddProp(updatedList);
+  };
+  
+  const handleRemoveTodo = (index) => {
+    const updatedList = [...toDoList];
+    updatedList.splice(index, 1);
+    setToDoList(updatedList);
+    onAddProp(updatedList);
+    // console.log(updatedList)
+  };
+  
 
 
   return (

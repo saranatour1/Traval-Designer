@@ -1,6 +1,13 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 
 
+/**
+ * The `usePost` function is a custom React hook that manages the state of likes, comments, likers, and
+ * authorship for a post, and provides a function to add or delete likes for the post.
+ * @returns an object with the following properties: `likes`, `comments`, `likers`, `isAuthor`, and
+ * `addOrDelete`.
+ */
 function usePost({item}) {
   const [likes, setLikes] = useState(item?.likes?.like || 0);
   const [comments, setComments] = useState(item?.comments);
