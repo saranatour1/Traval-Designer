@@ -124,7 +124,7 @@ function Post({ item ,onDeleteProp ,showPopUp , onEdit }) {
                   {segment.match(/(https?:\/\/[^\s]+)/g) ? (
                     <>
                     {isYoutubeLink(segment) ? <Embed url={segment+ '?showinfo=0&enablejsapi=1&origin=http://localhost:5173'} /> :
-                    <iframe src={segment} name="iframe_a" title="Iframe Example" width={400} height={400}></iframe>}
+                    <iframe src={segment} name="iframe_a" title="Iframe Example" width={1260} height={360}></iframe>}
                     </>
                   ) : (
                     <p key={index}>{segment}</p>
