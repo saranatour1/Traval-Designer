@@ -21,7 +21,7 @@ function CommentForm({author ,postId , updateComment,editComments }) {
     .then(data => {
       getPost();
       setComment('');
-      console.log('this is the trip object after adding a comment' ,data);
+      // console.log('this is the trip object after adding a comment' ,data);
     })
     .catch(error => {
       console.error(error);
@@ -38,7 +38,7 @@ const getPost = () => {
       .then(response => response.json())
       .then(data => {
         updateComment(data);
-        console.log(data);
+        // console.log(data);
       })
       .catch(error => {
         console.error(error);

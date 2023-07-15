@@ -22,7 +22,7 @@ function DashBoard({users}) {
       <Nav />
       <FakeComponent onClickProp={() => { setShowPopUp(!showPopUp); setEditMode(false); setSelectedPost({}); }} />
       {posts && <DisplayPosts items={posts} onDeleteProp={(item) => deleteItem(item)} showPopUp={() => setShowPopUp(!showPopUp)} onEdit={(item) => editModeOn(item)} />}
-      {showPopUp && <PostForm onClickProp={() => { /*setShowPopUp(!showPopUp);*/ if (!showPopUp) { setEditMode(false) } }} onSubmitProp={handleFormSubmit} users={users} item={selectedPost} editMode={editMode} />}
+      {showPopUp && <PostForm onClickProp={() => { setShowPopUp(!showPopUp); if (!showPopUp) { setEditMode(false) } }} onSubmitProp={handleFormSubmit} users={users} item={selectedPost} editMode={editMode} />}
 
     </>
   )

@@ -47,7 +47,6 @@ function Comment({ comment, deleteComment, postId }) {
         console.log(post)
         navigate(`/post/${postId}`);
       })
-
       .catch((err) => console.log(err));
   };
   

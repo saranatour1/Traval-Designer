@@ -83,8 +83,11 @@ function PostForm({ onClickProp, users, onSubmitProp, item, editMode =false }) {
         })
         .then((data) => {
           console.log(data)
-          onSubmitProp(data);
-          onClickProp();
+          if(title && content && toDoList && collab && labels){
+            onSubmitProp(data);
+            onClickProp();
+          }
+
        
         })
         .catch((error) => {
@@ -103,8 +106,10 @@ function PostForm({ onClickProp, users, onSubmitProp, item, editMode =false }) {
         })
         .then((data) => {
 
-          onSubmitProp(data);
-          onClickProp();
+          if(title && content && toDoList && collab && labels){
+            onSubmitProp(data);
+            onClickProp();
+          }
         })
         .catch((error) => {
           console.error(error);
@@ -165,7 +170,9 @@ function PostForm({ onClickProp, users, onSubmitProp, item, editMode =false }) {
               onClick={() => {
                 setLabels([...labels, label]);
                 setLabel("");
+                
               }}
+              type="button"
               className="ml-4 px-4 py-2 bg-indigo-500 text-white rounded-lg hover:bg-indigo-600 focus:outline-none focus:bg-indigo-600"
             >
               Add
@@ -177,7 +184,7 @@ function PostForm({ onClickProp, users, onSubmitProp, item, editMode =false }) {
                   className="inline-block px-3 py-1 text-sm font-semibold bg-gray-200 text-gray-800 rounded-full mr-2"
                 >
                   {item}
-                  <button className="ml-1 text-gray-600" onClick={()=> removeLabel(item)}>x</button>
+                  <button className="ml-1 text-gray-600" type="button" onClick={()=> removeLabel(item)}>x</button>
                 </span>
               ))}
             </div>
@@ -189,7 +196,7 @@ function PostForm({ onClickProp, users, onSubmitProp, item, editMode =false }) {
       label: "add to do items",
       description: (
         <div>
-          <ToDoList onAddProp={(items) => setToDoList(items)} />
+          <ToDoList onAddProp={(items) => setToDoList(items)} todo={toDoList} />
         </div>
       ),
     },
@@ -197,7 +204,7 @@ function PostForm({ onClickProp, users, onSubmitProp, item, editMode =false }) {
       label: "add collaborators",
       description: (
         <div>
-          <Collab users={users} onChangeProp={(item) => setCollab(item)} />
+          <Collab users={users} onChangeProp={(item) => setCollab(item)} newCollab={collab} />
         </div>
       ),
     },
@@ -208,7 +215,7 @@ function PostForm({ onClickProp, users, onSubmitProp, item, editMode =false }) {
   return (
     <>
       <form
-        onSubmit={(e) => handleSubmit(e) }
+        onSubmit={(e) => e.preventDefault() }
         className="transition  duration-75 ease-in-out overflow-y-auto"
       >
         <div className="fixed inset-0 flex items-center justify-center bg-opacity-75 bg-gray-900 overflow-y-auto h-100">
@@ -218,7 +225,7 @@ function PostForm({ onClickProp, users, onSubmitProp, item, editMode =false }) {
                 <div className="text-center font-bold text-2xl text-gray-800">
                   New Post
                 </div>
-                <button onClick={() => onClickProp()} className="text-red-500">
+                <button onClick={() => onClickProp()} className="text-red-500" type="button">
                   <AiOutlineCloseCircle />
                 </button>
               </div>
@@ -230,14 +237,16 @@ function PostForm({ onClickProp, users, onSubmitProp, item, editMode =false }) {
               <VerticalLinearStepper steps={steps} />
               <div className="buttons flex my-10">
                 <button
+                type="button"
                   className="btn border border-gray-300 p-1 px-4 font-semibold cursor-pointer text-gray-500 ml-auto"
                   onClick={() => onClickProp()}
                 >
                   Cancel
                 </button>
                 <button
+                type="button"
                   className="btn border border-indigo-500 p-1 px-4 font-semibold cursor-pointer text-gray-200 ml-2 bg-indigo-500"
-                  // onClick={() => handleSubmit()}
+                  onClick={(e) => handleSubmit(e)}
                 >
                   Post
                 </button>

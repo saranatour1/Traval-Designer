@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 
-function Collab({ users ,onChangeProp }) {
+function Collab({ users ,onChangeProp ,newCollab }) {
   const [collaborators, setCollaborators] = useState(users);
   const [searchField, setSearchField] = useState("");
-  const [selectedCollaborators, setSelectedCollaborators] = useState([]);
-  const [selectedCollaborator, setSelectedCollaborator] = useState(null);
+  const [selectedCollaborators, setSelectedCollaborators] = useState(newCollab ?? []);
 
   const handleInputFieldChange = (e) => {
     setSearchField(e.target.value.toLowerCase());
