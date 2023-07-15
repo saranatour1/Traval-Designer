@@ -1,3 +1,4 @@
+import usePost from "../../hooks/usePost";
 import useDateTime from "../../hooks/useDateTime";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -6,52 +7,24 @@ import { Link } from "react-router-dom";
 // eslint-disable-next-line react/prop-types
 function Post({ item ,onDeleteProp ,showPopUp , onEdit }) {
   // use state for the number of comments and number of likes
-  const [likes, setLikes] = useState(item?.likes?.like || 0);
-  const [comments, setComments] = useState(item?.comments?.length || 0);
-  const [likers, setLikers] = useState(
-    item.likes?.likedBy?.map((item, idx) => item._id) || null
-  );
-  const [isAuthor, setIsAuthor] = useState(false);
-  const [user, setUser] = useState("");
+
+  const {likes , comments , likers, isAuthor , addOrDelete} = usePost({item});
 
   const {getTimeAgo} = useDateTime();
 
-  console.log(getTimeAgo(item.updatedAt));
   const navigate = useNavigate();
+
+  const [timeAgo , setTimeAgo]=useState("");
 
 
   useEffect(() => {
-    const userId = localStorage.getItem("userId");
-    // console.log(userId);
-    setUser(userId);
-    item.author._id === userId ? setIsAuthor(true) : setIsAuthor(false);
-  }, [item.author._id]);
-
-
-  const addOrDelete = (postId) => {
-    // const userId = localStorage.getItem('userId');
-
-    fetch(`http://localhost:8000/api/addlike/${postId}/${user}/add`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (likers.includes(user)) {
-          setLikes(likes - 1);
-          setLikers(likers.filter((likerId) => likerId !== user));
-        } else {
-          setLikes(likes + 1);
-          setLikers([...likers, user]);
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
-
+    const interval = setInterval(() => {
+      setTimeAgo(getTimeAgo(item.createdAt));
+    }, 1000);
+  
+    return () => clearInterval(interval);
+  }, []);
+  
   const deletePost = () => {
     fetch(`http://localhost:8000/api/trips/${item._id}`, {
       method: "DELETE",
@@ -96,7 +69,7 @@ function Post({ item ,onDeleteProp ,showPopUp , onEdit }) {
               </button>
             ))}
             <div className="text-xs text-neutral-500">
-              {getTimeAgo(item.updatedAt)}{" "}
+              {timeAgo}{" "}
             </div>
           </div>
         </div>

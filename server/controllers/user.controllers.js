@@ -55,7 +55,7 @@ findUser: (req, res) => {
       if (!user) {
         res.status(404).json({ error: 'User not found' });
       } else {
-        res.json(user);
+        return res.status(200).json(user);
       }
     })
     .catch(err => {

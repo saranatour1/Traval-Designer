@@ -6,19 +6,19 @@ import { useNavigate } from 'react-router-dom';
 import Nav from '../components/Nav';
 import CommentForm from '../components/Comments Component/CommentForm';
 import CommentDisplay from '../components/Comments Component/CommentDisplay';
+import useLoggedUser from '../hooks/useLoggedUser';
 
 function SinglePostDetails({ users }) {
   const [post, setPost] = useState({});
   const { postId } = useParams();
   const [showPopUp, setShowPopUp] = useState(false);
   const [editMode, setEditMode] = useState(false); // always false
-  const [loggedInUser, setLoggedInUser] = useState("");
+
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const userId = localStorage.getItem("userId");
-    setLoggedInUser(userId);
-  }, []);
+  const {loggedInUser} = useLoggedUser();
+
+
 
   useEffect(() => {
     const getPost = () => {
@@ -74,12 +74,10 @@ function SinglePostDetails({ users }) {
 
   const deleteComment =(comment)=>{
     setPost(comment);
-
   }
   
   const editComments =(comment)=>{
     setPost(comment);
-
   }
 
   return (
@@ -95,12 +93,12 @@ function SinglePostDetails({ users }) {
               onEdit={item => editModee(item)}
 
             />
-            <CommentForm author={loggedInUser} postId ={post._id} updateComment={(post) => setPost(post)} editComments={(item)=>{editComments(item)}} />
+            <CommentForm author={loggedInUser._id} postId ={post._id} updateComment={(post) => setPost(post)} editComments={(item)=>{editComments(item)}} />
             
             {post.comments && <CommentDisplay postId={post._id} comments={post.comments} deleteComment={(item)=>{deleteComment(item)}}/>}
-</>
+          </>
         ) : (
-          <p>Loading post...</p>
+          <p className='text-center my-10'>Loading post...</p>
         )}
         {showPopUp && (
           <PostForm onClickProp={() => {setShowPopUp(!showPopUp); if (!showPopUp) { setEditMode(false);} }}onSubmitProp={handleFormSubmit} users={users} item={post} editMode={editMode} />
