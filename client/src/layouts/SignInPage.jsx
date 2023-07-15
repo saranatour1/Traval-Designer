@@ -51,7 +51,7 @@ function SignInPage() {
       body: JSON.stringify({ email, password }),
       credentials: 'include', 
     })
-      .then(response => {console.log(response) ; return response.json()})
+      .then(response => { return response.json()})
       .then(data => {
           const token = data.token;
         if (token) {
@@ -67,8 +67,7 @@ function SignInPage() {
         console.error(error);
       });
   };
- 
-  
+
   return (
     <Card>
       <TopHeading pageName={'Sign In'} />

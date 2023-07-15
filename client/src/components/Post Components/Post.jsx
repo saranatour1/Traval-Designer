@@ -1,3 +1,4 @@
+import useDateTime from "../../hooks/useDateTime";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -5,14 +6,19 @@ import { Link } from "react-router-dom";
 // eslint-disable-next-line react/prop-types
 function Post({ item ,onDeleteProp ,showPopUp , onEdit }) {
   // use state for the number of comments and number of likes
-  const [likes, setLikes] = useState(item.likes.like || 0);
-  const [comments, setComments] = useState(item.comments.length || 0);
+  const [likes, setLikes] = useState(item?.likes?.like || 0);
+  const [comments, setComments] = useState(item?.comments?.length || 0);
   const [likers, setLikers] = useState(
-    item.likes.likedBy?.map((item, idx) => item._id) || null
+    item.likes?.likedBy?.map((item, idx) => item._id) || null
   );
   const [isAuthor, setIsAuthor] = useState(false);
   const [user, setUser] = useState("");
+
+  const {getTimeAgo} = useDateTime();
+
+  console.log(getTimeAgo(item.updatedAt));
   const navigate = useNavigate();
+
 
   useEffect(() => {
     const userId = localStorage.getItem("userId");
@@ -21,8 +27,7 @@ function Post({ item ,onDeleteProp ,showPopUp , onEdit }) {
     item.author._id === userId ? setIsAuthor(true) : setIsAuthor(false);
   }, [item.author._id]);
 
-  // console.log(item.likedBy.map((item, idx) => item._id))
-  // console.log('Mode' , isAuthor);
+
   const addOrDelete = (postId) => {
     // const userId = localStorage.getItem('userId');
 
@@ -41,8 +46,6 @@ function Post({ item ,onDeleteProp ,showPopUp , onEdit }) {
           setLikes(likes + 1);
           setLikers([...likers, user]);
         }
-
-        // console.log(data);
       })
       .catch((error) => {
         console.error(error);
@@ -66,7 +69,7 @@ function Post({ item ,onDeleteProp ,showPopUp , onEdit }) {
       });
   };
 
-  // console.log(likes)
+
 
   return (
     <>
@@ -93,7 +96,7 @@ function Post({ item ,onDeleteProp ,showPopUp , onEdit }) {
               </button>
             ))}
             <div className="text-xs text-neutral-500">
-              {item.updatedAt.toLocaleString()}{" "}
+              {getTimeAgo(item.updatedAt)}{" "}
             </div>
           </div>
         </div>
