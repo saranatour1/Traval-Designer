@@ -9,8 +9,8 @@ import CommentDisplay from '../components/Comments Component/CommentDisplay';
 import useLoggedUser from '../hooks/useLoggedUser';
 
 function SinglePostDetails({ users }) {
-  const [post, setPost] = useState({});
   const { postId } = useParams();
+  const [post, setPost] = useState({});
   const [showPopUp, setShowPopUp] = useState(false);
   const [editMode, setEditMode] = useState(false); // always false
 
@@ -84,7 +84,7 @@ function SinglePostDetails({ users }) {
     <>
       <Nav />
       <div className="flex min-h-screen justify-center items-center flex-col">
-        {post._id ? (
+        {post?._id ? (
             <>
             <Post
               item={post}

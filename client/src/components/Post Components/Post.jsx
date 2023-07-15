@@ -3,6 +3,7 @@ import useDateTime from "../../hooks/useDateTime";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
 function Post({ item ,onDeleteProp ,showPopUp , onEdit }) {
@@ -10,13 +11,22 @@ function Post({ item ,onDeleteProp ,showPopUp , onEdit }) {
 
   const {likes , comments , likers, isAuthor , addOrDelete} = usePost({item});
 
+  const [expanded , setExpanded] = useState(false);
+
   const {getTimeAgo} = useDateTime();
 
   const navigate = useNavigate();
 
   const [timeAgo , setTimeAgo]=useState("");
 
+  const location = useLocation();
 
+  useEffect(() => {
+    location.pathname.includes('post') ? setExpanded(true): setExpanded(false);
+  }, [location.pathname]);
+
+
+  console.log(expanded , location.pathname)
   useEffect(() => {
     const interval = setInterval(() => {
       setTimeAgo(getTimeAgo(item.createdAt));
@@ -47,7 +57,7 @@ function Post({ item ,onDeleteProp ,showPopUp , onEdit }) {
   return (
     <>
       {/* Make it into a component later */}
-      <div className="rounded-xl border p-5 shadow-md w-full sm:w-6/12 bg-white mx-auto mt-3">
+      <div className="rounded-xl border p-5 shadow-md w-full sm:w-11/12 bg-white mx-auto mt-3">
         <div className="flex flex-col sm:flex-row items-center justify-between border-b pb-3">
           <div className="flex items-center space-x-3">
             <div
@@ -80,7 +90,19 @@ function Post({ item ,onDeleteProp ,showPopUp , onEdit }) {
             <Link to={`/post/${item._id}`}>{item.title}</Link>{" "}
           </div>
           <div className="text-sm text-neutral-600 text-clip">
-            {item.content}
+             <p className="my-4">{item.content}</p>
+            {expanded && item.toDoList.map((item, idx) => (
+                <div key={idx} className="flex items-center space-x-2">
+                  <input
+                  disabled={true}
+                    type="checkbox"
+                    defaultChecked={item.checked}
+                    className="form-checkbox h-4 w-4 text-indigo-600"
+                  />
+                  <p className="text-gray-800">{item.content}</p>
+                </div>
+              ))}
+
           </div>
         </div>
 

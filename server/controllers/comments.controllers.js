@@ -12,6 +12,8 @@ const createComment = async (req, res) => {
     const comment = {
       content: content,
       commentBy: author,
+      createdAt: new Date(),
+      updatedAt: new  Date(),
     };
 
     // @ts-ignore
@@ -26,6 +28,8 @@ const createComment = async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 };
+
+// this needs to be fixed >> Not sure if saving the trip without encountring the comment in it would work 
 
 const editComment = async (req, res) => {
   try {

@@ -1,6 +1,11 @@
 
 import { useEffect, useState } from 'react';
 
+/**
+ * The `useLoggedUser` function is a custom React hook that retrieves the logged-in user data from the
+ * server and returns it.
+ * @returns an object that contains the `loggedInUser` state variable.
+ */
 function useLoggedUser() {
   const [loggedInUser, setLoggedInUser] = useState({});
 
