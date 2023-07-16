@@ -34,7 +34,7 @@ function Comment({ comment, deleteComment, postId }) {
       }).then((edComm) => {       
         setComment(edComm);
         navigate(`/post/${postId}`); })
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
   };
   
   const deleteComments = () => {
@@ -44,13 +44,12 @@ function Comment({ comment, deleteComment, postId }) {
       .then((res) => { return res.json();}) 
       .then((post) => {
         deleteComment(post);
-        // console.log(post)
+
         navigate(`/post/${postId}`);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
   };
-  
-  console.log(comment);
+
   return (
     <div className="flex justify-center relative top-1/3 mt-2 w-full">
       <div className="relative grid grid-cols-1 gap-4 p-4 mb-8 border rounded-lg bg-white shadow-lg">

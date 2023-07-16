@@ -3,7 +3,6 @@
 import {Routes , Route} from 'react-router-dom';
 import RegestrationPage from "./layouts/RegestrationPage";
 import SignInPage from "./layouts/SignInPage";
-import Test from "./layouts/Test";
 import MainPage from "./layouts/MainPage";
 import DashBoard from './layouts/DashBoard';
 import React from 'react';
@@ -15,10 +14,6 @@ import UserProfile from './layouts/UserProfile';
 import Team from './layouts/Team';
 
 const App = () => {
-  // console.log(Intl.DateTimeFormat().resolvedOptions().timeZone)
-
-//   var offset = new Date().getTimezoneOffset();
-// console.log(offset);
 
   const [users , setUsers] =useState({});
   const navigate = useNavigate();
@@ -28,8 +23,6 @@ const App = () => {
       navigate('/');
     }
   }, []);
-
-// person/{id} shows person 
 
       useEffect(() => {
         getUsers();
@@ -45,7 +38,6 @@ const getUsers = () => {
       .then(response => response.json())
       .then(data => {
         setUsers(data);
-        // console.log(data);
       })
       .catch(error => {
         console.error(error);
@@ -62,7 +54,6 @@ const getUsers = () => {
       <Route path='/post/:postId' element={<SinglePostDetails users={users} />}/>
       <Route path='/user/:userId' element={<UserProfile users={users} />} />
       <Route path='/team' element={<Team />} />
-      <Route path ='/test' element={<Test />} />
     </Routes>
 
 

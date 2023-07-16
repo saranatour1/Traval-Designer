@@ -6,6 +6,7 @@ import MobileButton from "./NavBar Components/MobileButton";
 import NavLinks from "./NavBar Components/NavLinks";
 import React from "react";
 import NotificationTab from "./NavBar Components/NotificationTab";
+import useLoggedUser from "../hooks/useLoggedUser";
 
 
 function Nav() {
@@ -13,6 +14,8 @@ function Nav() {
   const [isNOpen, setIsNOpen] = useState(false);
   // eslint-disable-next-line no-unused-vars
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  const {loggedInUser} = useLoggedUser();
   // Desktop View
    
   const linkClass =
@@ -37,7 +40,6 @@ function Nav() {
   const openNotifications = () => {
     setIsNOpen(!isNOpen);
   };
-  // console.log(window.innerWidth);
 
   useEffect(() => {
     const handleResize = () => {
@@ -120,7 +122,7 @@ function Nav() {
                   <span className="sr-only">Open user menu</span>
                   <img
                     className="h-8 w-8 rounded-full"
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                    src={loggedInUser?.defaultUserInformation?.imgUrl}
                     alt=""
                   />
                 </button>

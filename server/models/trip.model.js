@@ -18,10 +18,7 @@ const TripSchema = new Schema(
     },
     content: {
       type: String,
-      maxlength: [
-        1000,
-        "Please make the description less than 1000 characters!",
-      ],
+      
     },
     likes: {
       like: {

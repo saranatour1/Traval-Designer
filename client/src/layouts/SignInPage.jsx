@@ -15,7 +15,7 @@ function SignInPage() {
   const [password, setPassword] = useState('');
 
   const getErrors =(errors)=>{
-    console.log('wepee we have an error')
+
   }
 
   const {errors , addError} = useErrors2({getErrors})

@@ -19,7 +19,7 @@ function RegestrationPage() {
 
   
   const getErrors =(errors)=>{
-    console.log('we have errors');
+    // console.log('we have errors');
   }
   
   const {errors , addError} = useErrors2({getErrors});
@@ -56,7 +56,7 @@ function RegestrationPage() {
       }
     })
     .catch(error => {
-      console.log(error);
+      console.error(error);
     });
 };
 

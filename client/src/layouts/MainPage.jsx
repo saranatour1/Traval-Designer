@@ -29,14 +29,13 @@ function MainPage() {
     }
   }, [results]);
 
-  // console.log(error);
+
   useEffect(() => {
-    // console.log('i am here', coordinates);
     localStorage.setItem("coord", JSON.stringify(coordinates));
   }, [coordinates]);
 
 
-  // console.log(results)
+
   return (
     <div>
       {error ? error.map((item, idx) => <Toast key={idx} error={item} />) : ""}
