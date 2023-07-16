@@ -168,9 +168,11 @@ You will be met with this page, where all validations are required! ,Next Let's 
 Upon Successful Regestry , we navigate to the Sign in page
 ![Unsuccessful sign in](https://github.com/saranatour1/Traval-Designer/assets/77834808/074995d7-c520-4273-8f53-d11c121e7dc9)
 
+
 ### Dashboaard 
 Upon sucseefull sign in you will be met with this dashboard
-![Screen Shot 2023-07-06 at 00 02 45](https://github.com/saranatour1/Traval-Designer/assets/77834808/c9d5bb81-f981-488d-a258-d118cf516f45)
+![Dashboard](https://github.com/saranatour1/Traval-Designer/assets/77834808/39dac751-c304-48f5-a9aa-341995bbc368)
+
  - You Can Like Peoples comments
  - you can Post posts
  - you can delete your posts or your comments, you can edit your post as well. 
@@ -178,16 +180,16 @@ Upon sucseefull sign in you will be met with this dashboard
 
 ### Post and Comment Page : 
 - when you click on a post, you will see the post details and people who commented on it and you can comment yourself!
-  ![Screen Shot 2023-07-06 at 00 12 45](https://github.com/saranatour1/Traval-Designer/assets/77834808/7688748c-51e4-4799-ae4d-63ecb2e05901)
+![Screen Shot 2023-07-16 at 15 45 29](https://github.com/saranatour1/Traval-Designer/assets/77834808/c2ca8e94-c693-4835-bb33-c344d5d8016c)
+![Screen Shot 2023-07-16 at 15 45 58](https://github.com/saranatour1/Traval-Designer/assets/77834808/47b170a7-1f51-4763-8fa6-0cf8e7317a74)
 
 ### The profile page :
 This is where you will see your posts, information , and posts you have collaborated on (github wanna be) <sub><sup>Please don't sue , we are open for work</sup></sub> , you will edit your posts, and delete them if you want. 
-![Screen Shot 2023-07-06 at 00 15 24](https://github.com/saranatour1/Traval-Designer/assets/77834808/06a64869-74da-4c3a-91cc-0ebc9be7d52a)
+![Screen Shot 2023-07-16 at 15 40 38](https://github.com/saranatour1/Traval-Designer/assets/77834808/1a68afbb-9059-4eec-8439-a3ef9b5559c1)
 
 ### Our team page : 
 **Becasue we can** 
 ![Screen Shot 2023-07-06 at 00 34 53](https://github.com/saranatour1/Traval-Designer/assets/77834808/1c7b24ae-7116-437f-a934-5b3baaf30ff2)
-
 
  
 # Conclusion
