@@ -1,63 +1,56 @@
-import usePost from "../../hooks/usePost";
-import useDateTime from "../../hooks/useDateTime";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { useLocation } from "react-router-dom";
-import Embed from 'react-embed';
+import Embed from "react-embed";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import useDateTime from "../../hooks/useDateTime";
+import usePost from "../../hooks/usePost";
 
 // eslint-disable-next-line react/prop-types
-function Post({ item ,onDeleteProp ,showPopUp , onEdit }) {
+function Post({ item, onDeleteProp, showPopUp, onEdit }) {
   // use state for the number of comments and number of likes
 
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState("");
 
-  const {likes , comments , likers, isAuthor , addOrDelete} = usePost({item});
+  const { likes, comments, likers, isAuthor, addOrDelete } = usePost({ item });
 
-  const [expanded , setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(false);
 
-  const {getTimeAgo} = useDateTime();
+  const { getTimeAgo } = useDateTime();
 
   const navigate = useNavigate();
 
-  const [timeAgo , setTimeAgo]=useState("");
+  const [timeAgo, setTimeAgo] = useState("");
 
   const location = useLocation();
 
   useEffect(() => {
-    location.pathname.includes('post') ? setExpanded(true): setExpanded(false);
+    location.pathname.includes("post") ? setExpanded(true) : setExpanded(false);
   }, [location.pathname]);
-
 
   useEffect(() => {
     function extractLinks(content) {
       const urlRegex = /(https?:\/\/[^\s]+)/g;
       const links = content.match(urlRegex) || [];
       const text = content.split(urlRegex);
-      console.log(text)
+      console.log(text);
       return { links, text };
     }
-  
+
     const { links, text } = extractLinks(item.content);
 
     setContent(text);
     // console.log(content)
-    
   }, []);
 
-
-
-
-
+  console.log(item);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setTimeAgo(getTimeAgo(item.createdAt));
     }, 1000);
-  
+
     return () => clearInterval(interval);
   }, []);
-  
+
   const deletePost = () => {
     fetch(`http://localhost:8000/api/trips/${item._id}`, {
       method: "DELETE",
@@ -68,7 +61,7 @@ function Post({ item ,onDeleteProp ,showPopUp , onEdit }) {
       .then((response) => response.json())
       .then((data) => {
         // console.log(data)
-        onDeleteProp(item._id)
+        onDeleteProp(item._id);
       })
       .catch((error) => {
         console.error(error);
@@ -79,18 +72,17 @@ function Post({ item ,onDeleteProp ,showPopUp , onEdit }) {
     return /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/.test(url);
   }
 
-
-
+  console.log(item.author?.defaultUserInformation?.imgUrl);
   return (
     <>
       {/* Make it into a component later */}
       <div className="rounded-xl border p-5 shadow-md w-full sm:w-11/12 bg-white mx-auto mt-3">
         <div className="flex flex-col sm:flex-row items-center justify-between border-b pb-3">
           <div className="flex items-center space-x-3">
-            <div
-              className="h-8 w-8 rounded-full bg-slate-400"
-              style={{ backgroundImage: `url('https://i.pravatar.cc/32')` }}
-            ></div>
+            <div className="h-10 w-10 rounded-full bg-slate-400">
+              <img src={item?.author?.defaultUserInformation?.imgUrl} alt="" />
+            </div>
+
             <Link
               to={`/user/${item.author._id}`}
               className="text-lg font-bold text-slate-700"
@@ -105,9 +97,7 @@ function Post({ item ,onDeleteProp ,showPopUp , onEdit }) {
                 {label}
               </button>
             ))}
-            <div className="text-xs text-neutral-500">
-              {timeAgo}{" "}
-            </div>
+            <div className="text-xs text-neutral-500">{timeAgo} </div>
           </div>
         </div>
 
@@ -117,32 +107,48 @@ function Post({ item ,onDeleteProp ,showPopUp , onEdit }) {
             <Link to={`/post/${item._id}`}>{item.title}</Link>{" "}
           </div>
           <div className="text-sm text-neutral-600 text-clip">
-            {expanded ? 
+            {expanded ? (
               <>
-              {content.map((segment, index) => (
-                <React.Fragment key={index}>
-                  {segment.match(/(https?:\/\/[^\s]+)/g) ? (
-                    <>
-                    {isYoutubeLink(segment) ? <Embed url={segment+ '?showinfo=0&enablejsapi=1&origin=http://localhost:5173'} /> :
-                    <iframe src={segment} name="iframe_a" title="Iframe Example" width={400} height={400}></iframe>}
-                    </>
-                  ) : (
-                    <p key={index}>{segment}</p>
-                  )}
-                </React.Fragment>
-              ))}
-              {/* <p className="my-4">{item.content}</p> */}
-            </>
-
-
-
-             : <p className="my-4">{item.content.substring(0, 20)} 
-             ...  
-             <Link to={`/post/${item._id}`}>Show more</Link>{" "}</p>}
-            {expanded && item.toDoList.map((item, idx) => (
+                {content.map((segment, index) => (
+                  <React.Fragment key={index}>
+                    {segment.match(/(https?:\/\/[^\s]+)/g) ? (
+                      <>
+                        {isYoutubeLink(segment) ? (
+                          <Embed
+                            url={
+                              segment +
+                              "?showinfo=0&enablejsapi=1&origin=http://localhost:5173"
+                            }
+                          />
+                        ) : (
+                          <iframe
+                            src={segment}
+                            name="iframe_a"
+                            title="Iframe Example"
+                            width={1260}
+                            height={360}
+                          ></iframe>
+                        )}
+                      </>
+                    ) : (
+                      <p key={index}>{segment}</p>
+                    )}
+                  </React.Fragment>
+                ))}
+                {/* <p className="my-4">{item.content}</p> */}
+              </>
+            ) : (
+              <p className="my-4">
+                {item.content.substring(0, 20)}
+                ...
+                <Link to={`/post/${item._id}`}>Show more</Link>{" "}
+              </p>
+            )}
+            {expanded &&
+              item.toDoList.map((item, idx) => (
                 <div key={idx} className="flex items-center space-x-2">
                   <input
-                  disabled={true}
+                    disabled={true}
                     type="checkbox"
                     defaultChecked={item.checked}
                     className="form-checkbox h-4 w-4 text-indigo-600"
@@ -150,14 +156,16 @@ function Post({ item ,onDeleteProp ,showPopUp , onEdit }) {
                   <p className="text-gray-800">{item.content}</p>
                 </div>
               ))}
-
           </div>
         </div>
 
         <div>
           <div className="flex items-center justify-between text-slate-500">
             <div className="flex space-x-4 sm:space-x-8">
-              <div className="flex cursor-pointer items-center transition hover:text-slate-600" onClick={()=>navigate(`/post/${item._id}`)}>
+              <div
+                className="flex cursor-pointer items-center transition hover:text-slate-600"
+                onClick={() => navigate(`/post/${item._id}`)}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="mr-1.5 h-5 w-5"
@@ -204,7 +212,13 @@ function Post({ item ,onDeleteProp ,showPopUp , onEdit }) {
                     delete
                   </button>
 
-                  <button className="text-slate-500 hover:text-slate-600" onClick={()=> {showPopUp();  onEdit(item);}}>
+                  <button
+                    className="text-slate-500 hover:text-slate-600"
+                    onClick={() => {
+                      showPopUp();
+                      onEdit(item);
+                    }}
+                  >
                     edit
                   </button>
                 </>
@@ -213,7 +227,6 @@ function Post({ item ,onDeleteProp ,showPopUp , onEdit }) {
           </div>
         </div>
       </div>
-      
     </>
   );
 }

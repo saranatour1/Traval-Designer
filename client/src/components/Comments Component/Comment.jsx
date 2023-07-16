@@ -44,18 +44,19 @@ function Comment({ comment, deleteComment, postId }) {
       .then((res) => { return res.json();}) 
       .then((post) => {
         deleteComment(post);
-        console.log(post)
+        // console.log(post)
         navigate(`/post/${postId}`);
       })
       .catch((err) => console.log(err));
   };
   
+  console.log(comment);
   return (
     <div className="flex justify-center relative top-1/3 mt-2 w-full">
       <div className="relative grid grid-cols-1 gap-4 p-4 mb-8 border rounded-lg bg-white shadow-lg">
         <div className="relative flex gap-4 w-full mx-auto">
           <img
-            src="https://icons.iconarchive.com/icons/diversity-avatars/avatars/256/charlie-chaplin-icon.png"
+            src={`${comment?.commentBy?.defaultUserInformation?.imgUrl}`}
             className="relative rounded-lg -top-8 -mb-4 bg-white border h-20 w-20"
             alt=""
             loading="lazy"

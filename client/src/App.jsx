@@ -15,6 +15,11 @@ import UserProfile from './layouts/UserProfile';
 import Team from './layouts/Team';
 
 const App = () => {
+  // console.log(Intl.DateTimeFormat().resolvedOptions().timeZone)
+
+//   var offset = new Date().getTimezoneOffset();
+// console.log(offset);
+
   const [users , setUsers] =useState({});
   const navigate = useNavigate();
   useEffect(() => {

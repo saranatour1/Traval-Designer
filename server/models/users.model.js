@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const bcrypt = require('bcrypt');
 
+const randomNumber = Math.floor(Math.random() * 53) + 1;
+
 const UserSchema = new mongoose.Schema(
   {
     firstName: {
@@ -18,6 +20,38 @@ const UserSchema = new mongoose.Schema(
         validator: val => /^([\w-\.]+@([\w-]+\.)+[\w-]+)?$/.test(val),
         message: "Please enter a valid email"
       }
+    },
+    defaultUserInformation:{
+    timeZone:{
+      type:String, 
+      default: Intl.DateTimeFormat().resolvedOptions().timeZone
+    },
+      imgUrl: {
+        type: String,
+        validate: {
+          validator: val => /^https?:\/\/(?:[a-z\-]+\.)+[a-z]{2,6}(?:\/[^/#?]+)+\.(?:jpg|jpeg|png|gif)$/i.test(val),
+          message: "Please enter a valid image URL"
+        },
+        default:`https://xsgames.co/randomusers/assets/avatars/pixel/${randomNumber}.jpg`
+      },
+        bio: {
+          type: String,
+          default: "Just a random person from a random city, with a passion for traveling and making new friends."
+        },
+        colorTheme: 
+        {
+          type: String,
+          default:'bg-blue-400'
+        },
+        status: {
+          type: String,
+          default: 'Nothing To See here',
+          expires: {
+            type: String,
+            enum: ['1s', '1m', '1h', '1d'],
+            default: '1h'
+          }
+        }      
     },
     password: {
       type: String,

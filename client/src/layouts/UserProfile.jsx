@@ -4,12 +4,14 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import FullWidthTabs from '../components/Profile Component/FullWidthTabs';
+import useLoggedUser from '../hooks/useLoggedUser';
 
 
 // # add prop type validation
 function UserProfile({users}) {
   const { userId } = useParams();
-  const [loggedUser, setLoggedUser] = useState({}); // refactor this tommorow
+  // const [loggedUser, setLoggedUser] = useState({}); // refactor this tommorow
+  const {loggedInUser} =useLoggedUser();
   const [otherUser, setOtherUser] = useState({}); 
 
   const [posts , setPosts] =useState([]);
@@ -29,13 +31,6 @@ function UserProfile({users}) {
   useEffect(() => {
     findPostsWhereUserIsCollab()
   }, []);
-
-  useEffect(() => {
-    const userId = localStorage.getItem("userId");
-    setLoggedUser(userId);
-  }, []);
-
-
 
   const findPostsWhereUserIsAuthor = () => {
     fetch(`http://localhost:8000/api/trips/user/${userId}`, {
@@ -97,7 +92,7 @@ function UserProfile({users}) {
         return response.json();
       })
       .then(data => {
-        // console.log(data);
+        console.log(data);
         setOtherUser(data);
       })
       .catch(error => {
@@ -110,7 +105,7 @@ function UserProfile({users}) {
       <Nav />
       <div className=' mb-10'>
           <div className=' h-12'></div>
-          <UserCard user={loggedUser} otherUser={otherUser} collab={collabPosts.length} normalPosts ={posts.length} />
+          <UserCard user={loggedInUser._id} otherUser={otherUser} collab={collabPosts.length} normalPosts ={posts.length} />
           <FullWidthTabs items={posts} users={users} collab={collabPosts}  />
 
       </div>
