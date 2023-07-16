@@ -104,7 +104,7 @@ export default function FullWidthTabs({ items, users ,collab }) {
   };
 
   return (
-    <Box sx={{ bgcolor: 'background.paper', width: 1000 }} className='bg-gray-100 mx-auto mt-5 w-full sm:max-w-xl md:max-w-3xl lg:max-w-4xl xl:max-w-5xl'>
+    <Box sx={{ bgcolor: 'background.paper', width: 1000 }} className='bg-gray-100 mx-auto mt-44 w-full sm:max-w-xl md:max-w-3xl lg:max-w-4xl xl:max-w-5xl'>
       <AppBar position="static">
         <Tabs
           value={value}
