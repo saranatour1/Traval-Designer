@@ -89,6 +89,7 @@ function UserProfile({users}) {
       })
       .then(data => {
         setOtherUser(data);
+        // console.log(data)
       })
       .catch(error => {
         console.error(error);

@@ -217,6 +217,7 @@ Thank you for taking the time to read about our project!
 - Maybe Don't use React Render because it's only for videos? : [Link](https://stackoverflow.com/questions/45677637/how-to-create-react-component-that-can-render-img-or-video-depending-on-api-data)
 
 - Time Zone by area: [Link](https://stackoverflow.com/questions/1091372/getting-the-clients-time-zone-and-offset-in-javascript)
+- Expires : [Link](https://stackoverflow.com/questions/14597241/setting-expiry-time-for-a-collection-in-mongodb-using-mongoose)
 
 ## Styled Ccomponents Source:
 - The Sign Up and Sign In Form [Link](https://tailwindcomponents.com/component/simple-sign-in) 

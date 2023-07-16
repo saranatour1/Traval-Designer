@@ -46,11 +46,7 @@ const UserSchema = new mongoose.Schema(
         status: {
           type: String,
           default: 'Nothing To See here',
-          expires: {
-            type: String,
-            enum: ['1s', '1m', '1h', '1d'],
-            default: '1h'
-          }
+          createdAt: { type: Date, expires: '2m', default: Date.now }
         }      
     },
     password: {
