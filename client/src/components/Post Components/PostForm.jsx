@@ -18,7 +18,7 @@ function PostForm({ onClickProp, users, onSubmitProp, item, editMode =false }) {
   const [loggedInUser, setLoggedInUser] = useState("");
 
   const getErrors= () =>{
-    console.log('wepee error');
+    // console.log('wepee error');
   }
   
   const {errors , addError} = useErrors2({getErrors});
@@ -82,7 +82,7 @@ function PostForm({ onClickProp, users, onSubmitProp, item, editMode =false }) {
           return response.json();
         })
         .then((data) => {
-          console.log(data)
+          // console.log(data)
           if(title && content && toDoList && collab && labels){
             onSubmitProp(data);
             onClickProp();

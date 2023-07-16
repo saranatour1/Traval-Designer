@@ -31,17 +31,16 @@ function Post({ item, onDeleteProp, showPopUp, onEdit }) {
       const urlRegex = /(https?:\/\/[^\s]+)/g;
       const links = content.match(urlRegex) || [];
       const text = content.split(urlRegex);
-      console.log(text);
+
       return { links, text };
     }
 
     const { links, text } = extractLinks(item.content);
 
     setContent(text);
-    // console.log(content)
+
   }, []);
 
-  console.log(item);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -72,7 +71,7 @@ function Post({ item, onDeleteProp, showPopUp, onEdit }) {
     return /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/.test(url);
   }
 
-  console.log(item.author?.defaultUserInformation?.imgUrl);
+
   return (
     <>
       {/* Make it into a component later */}

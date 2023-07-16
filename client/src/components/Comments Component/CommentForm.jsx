@@ -5,7 +5,7 @@ import { useState } from "react";
 function CommentForm({author ,postId , updateComment,editComments }) {
   const [comment , setComment] =useState('')
   
-  console.log(comment);
+
 
   // adding a comment is a put request to the post :D
   const addComment = () => {
@@ -17,11 +17,11 @@ function CommentForm({author ,postId , updateComment,editComments }) {
     body: JSON.stringify({ content: comment}),
   })
     .then(response => {
-      console.log(response); return response.json()})
+      return response.json()})
     .then(data => {
       getPost();
       setComment('');
-      // console.log('this is the trip object after adding a comment' ,data);
+
     })
     .catch(error => {
       console.error(error);
@@ -38,7 +38,6 @@ const getPost = () => {
       .then(response => response.json())
       .then(data => {
         updateComment(data);
-        // console.log(data);
       })
       .catch(error => {
         console.error(error);

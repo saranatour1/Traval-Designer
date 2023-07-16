@@ -12,7 +12,7 @@ function UserCard({user, otherUser , collab ,normalPosts }) {
     user ===otherUser._id ? setIsLogged(true):setIsLogged(false);
   }, [otherUser._id, user]);
 
-  console.log(otherUser?.defaultUserInformation)
+
 
   return (
     <>
