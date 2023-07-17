@@ -12,7 +12,7 @@ function UserCard({user, otherUser , collab ,normalPosts }) {
     user ===  otherUser._id ? setIsLogged(true):setIsLogged(false);
   }, [otherUser._id, user]);
 
-
+// console.log(otherUser?.defaultUserInformation?.colorTheme)
 
   return (
     <>
@@ -24,7 +24,7 @@ function UserCard({user, otherUser , collab ,normalPosts }) {
             alt=""
           />
         </div>
-        <div className={`h-56 mx-4 w-5/6 ${otherUser?.defaultUserInformation?.colorTheme} rounded-3xl shadow-md sm:w-80 sm:mx-0`}>
+        <div className={`h-56 mx-4 w-5/6 ${otherUser?.defaultUserInformation?.colorTheme ?? 'bg-blue-400'}  rounded-3xl shadow-md sm:w-80 sm:mx-0`}>
           <div className="h-1/2 w-full flex justify-between items-baseline px-3 py-5">
             <h1 className="text-white text-xl font-bold tracking-wide">Profile</h1>
           </div>
