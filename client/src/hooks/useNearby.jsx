@@ -31,6 +31,7 @@ function useNearby() {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data)
         localStorage.setItem("nearby", JSON.stringify(data));
         setNearby(data.json);
       })
