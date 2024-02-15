@@ -1,8 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 // import Post from '../components/Post'
 import Nav from '../components/Nav'
-import React from 'react'
-import { useEffect } from 'react';
 import { useState } from 'react';
 import DisplayPosts from '../components/DisplayPosts';
 import FakeComponent from '../components/FakeComponent';
