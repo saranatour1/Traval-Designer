@@ -3,11 +3,7 @@ import github from "../assets/github-mark-white.svg";
 import Nav from "../components/Nav";
 import TeamComponent from "../components/TeamComponent";
 
-const users = [
-  "saranatour1",
-  "Yousef-labadi",
-  "HamdanIbra",
-];
+const users = ["saranatour1", "Yousef-labadi", "HamdanIbra"];
 
 function Team() {
   const [newUsers, setNewUsers] = useState([]);
@@ -46,8 +42,8 @@ function Team() {
     <>
       <Nav />
       <h3 className="h-32 flex items-center justify-center mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white my-5 text-center">
-  Our Team
-</h3>
+        Our Team
+      </h3>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 w-10/12 mx-auto">
         {newUsers.map((item, idx) => (
@@ -58,8 +54,7 @@ function Team() {
       </div>
 
       <h1 className="ml-4 mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white text-center">
-        Checkout our{" "}
-        <span className="text-blue-600 dark:text-blue-500">GitHub Repo</span>{" "}
+        Checkout our <span className="text-blue-600 dark:text-blue-500">GitHub Repo</span>{" "}
       </h1>
       <div className="flex justify-center my-10">
         <a

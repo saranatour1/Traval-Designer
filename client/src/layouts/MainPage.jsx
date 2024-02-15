@@ -9,10 +9,8 @@ import Toast from "../components/Validation Toast/Toast";
 import useCoordinates from "../hooks/useCoordinates";
 import useNearby from "../hooks/useNearby";
 
-
-
 function MainPage() {
-  // added the useCoordinates hook to extract user coordinate. 
+  // added the useCoordinates hook to extract user coordinate.
   const coordinates = useCoordinates();
   // added useNearby to extract nearby data
   const nearby = useNearby();
@@ -29,12 +27,9 @@ function MainPage() {
     }
   }, [results]);
 
-
   useEffect(() => {
     localStorage.setItem("coord", JSON.stringify(coordinates));
   }, [coordinates]);
-
-
 
   return (
     <div>
@@ -45,10 +40,7 @@ function MainPage() {
           Search Any Place{" "}
         </h3>
       </div>
-      <SearchBar
-        onSubmitResult={(data) => setResults(data)}
-        getErrors={(items) => setError(items)}
-      />
+      <SearchBar onSubmitResult={(data) => setResults(data)} getErrors={(items) => setError(items)} />
       {isResults && (
         <h3 className=" mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white my-5 text-center">
           Your search Results
@@ -62,7 +54,6 @@ function MainPage() {
       )}
       {nearby && <Display places={nearby.data} />}
     </div>
-
   );
 }
 

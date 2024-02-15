@@ -1,24 +1,21 @@
-import UserCard from '../components/Profile Component/UserCard';
-import Nav from '../components/Nav';
-import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import UserCard from "../components/Profile Component/UserCard";
+import Nav from "../components/Nav";
+import  { useEffect, useState } from "react";
+import {  useParams } from "react-router-dom";
 
-import FullWidthTabs from '../components/Profile Component/FullWidthTabs';
-import useLoggedUser from '../hooks/useLoggedUser';
-
+import FullWidthTabs from "../components/Profile Component/FullWidthTabs";
+import useLoggedUser from "../hooks/useLoggedUser";
 
 // # add prop type validation
-function UserProfile({users}) {
+function UserProfile({ users }) {
   const { userId } = useParams();
   // const [loggedUser, setLoggedUser] = useState({}); // refactor this tommorow
-  const {loggedInUser} =useLoggedUser();
-  const [otherUser, setOtherUser] = useState({}); 
+  const { loggedInUser } = useLoggedUser();
+  const [otherUser, setOtherUser] = useState({});
 
-  const [posts , setPosts] =useState([]);
+  const [posts, setPosts] = useState([]);
 
-  const [collabPosts , setCollabPosts] = useState([]);
-
-
+  const [collabPosts, setCollabPosts] = useState([]);
 
   useEffect(() => {
     findOtherUser();
@@ -29,69 +26,66 @@ function UserProfile({users}) {
   }, []);
 
   useEffect(() => {
-    findPostsWhereUserIsCollab()
+    findPostsWhereUserIsCollab();
   }, []);
 
   const findPostsWhereUserIsAuthor = () => {
     fetch(`http://localhost:8000/api/trips/user/${userId}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
-      .then(response => {
-        if(response.status === 404){
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (response.status === 404) {
           setPosts([]);
         }
         return response.json();
       })
-      .then(data => {
+      .then((data) => {
         setPosts(data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
-  }
+  };
 
-
-  
   const findPostsWhereUserIsCollab = () => {
     fetch(`http://localhost:8000/api/trips/user/collab/${userId}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
-      .then(response => {
-        if(response.status === 404){
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (response.status === 404) {
           setPosts([]);
         }
         return response.json();
       })
-      .then(data => {
+      .then((data) => {
         setCollabPosts(data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
-  }
-
+  };
 
   const findOtherUser = () => {
     fetch(`http://localhost:8000/api/user/${userId}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        })
-      .then(response => {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
         return response.json();
       })
-      .then(data => {
+      .then((data) => {
         setOtherUser(data);
         // console.log(data)
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   };
@@ -99,11 +93,15 @@ function UserProfile({users}) {
   return (
     <>
       <Nav />
-      <div className=' mb-10'>
-          <div className=' h-12'></div>
-          <UserCard user={loggedInUser._id} otherUser={otherUser} collab={collabPosts.length} normalPosts ={posts.length} />
-          <FullWidthTabs items={posts} users={users} collab={collabPosts}  />
-
+      <div className=" mb-10">
+        <div className=" h-12"></div>
+        <UserCard
+          user={loggedInUser._id}
+          otherUser={otherUser}
+          collab={collabPosts.length}
+          normalPosts={posts.length}
+        />
+        <FullWidthTabs items={posts} users={users} collab={collabPosts} />
       </div>
     </>
   );
